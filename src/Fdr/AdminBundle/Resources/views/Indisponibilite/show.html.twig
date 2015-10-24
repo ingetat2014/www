@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% block title %}Indisponibilite|Show{% endblock %}
+{% block body -%}
+<div class="page-header"><h1> Affichage d'une Indisponibilite</h1></div>
+
+
+
+{{ form_start(form) }}
+<div class="desactiver-champs">
+<div class="row">
+<span class="alert-danger ">{{ form_errors(form) }}</span>
+</div>
+
+<div class="row">
+
+<div class="span6 offset3">
+
+<fieldset>
+<legend></legend>
+
+<div class="row-fluid">
+<div class="span5">{{ form_label(form.chauffeur," Chauffeur ") }}</div>
+{{ form_widget(form.chauffeur) }}<span class="alert-danger ">{{ form_errors(form.chauffeur) }}</span>
+</div>
+
+<div class="row-fluid">
+<div class="span5">{{ form_label(form.motif," Motif ") }}</div>
+{{ form_widget(form.motif) }}<span class="alert-danger ">{{ form_errors(form.motif) }}</span>
+</div>
+
+<div class="row-fluid">
+<div class="span5">{{ form_label(form.datedebut," Date de début ") }}</div>
+{{ form_widget(form.datedebut) }}<span class="alert-danger ">{{ form_errors(form.datedebut) }}</span>
+</div>
+
+<div class="row-fluid">
+<div class="span5">{{ form_label(form.datefin," Date de fin ") }}</div>
+{{ form_widget(form.datefin) }}<span class="alert-danger ">{{ form_errors(form.datefin) }}</span>
+</div>
+
+
+</fieldset>
+
+</div>
+</div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+

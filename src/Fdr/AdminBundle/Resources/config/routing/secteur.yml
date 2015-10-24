@@ -1,0 +1,30 @@
+secteur:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Secteur:index" }
+
+secteur_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Secteur:show" }
+
+secteur_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Secteur:new" }
+
+secteur_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Secteur:create" }
+    methods:  POST
+
+secteur_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Secteur:edit" }
+
+secteur_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Secteur:update" }
+    methods:  [POST, PUT]
+
+secteur_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Secteur:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="ismailkomay"/>
+        <meta name="author" content="ismailkomay"/>
+        <title>{% block title %}Accueil{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('divers/bootstrap.min.css') }}" />
+        
+        <!--Ajoute recemment-->
+        <script type="text/javascript" src="{{ asset('combobox/jquery-1.10.2.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('combobox/jquery-ui.js') }}"></script>
+        <!---->
+        
+        <script type="text/javascript" src="{{ asset('ajax/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('divers/jquery-1.9.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('divers/jquery.confirm.js') }}"></script>
+
+	{% block stylesheets %}
+        {% stylesheets 'bundles/fdradmin/css/*' filter='cssrewrite' output='css/compiled/main.css'%}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                Bonjour <strong>{{app.user.username}} (Role : <span class="text-info">{{app.user.roles[0]}} </span>, Depôt : <span class="text-info">{{app.user.depot}} </span>  </strong>|
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+
+
+            {% else %}
+                <div class="row-fluid">
+                    <div class="span12 text-right">
+
+                        <a href="{{ path('fos_user_security_login') }}">
+                            <button class="btn btn-default">
+                                Se connecter 
+                            </button>
+                        </a>
+
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+            <hr/>
+
+       {% if  is_granted("IS_AUTHENTICATED_FULLY")%}
+            <div class="row-fluid">
+                <div class="nav navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <img id="inputButtonAfficher" title="CTM MESSAGERIE" src="{{ asset('bundles/fdradmin/images/ctm.png') }}" />
+
+                    </div>
+                    {% set foo = app.request.attributes.get("_route") %}
+                    <ul class="nav navbar-nav">
+                        <li  class=""><a id="accueil" href="{{ path('home_user') }}" class="{%if app.request.attributes.get("_route") is sameas('home_user')%}menuActif{%endif%}">Accueil</a></li>
+                        {% if role is defined and role is not null %}
+                        {% if  role.affFDR or role.delFDR or role.upFDR or role.crFDR or role.cloturerFDR or role.editCompteur or role.affectationVehicule %}
+                        <li id="feuilledderoute" class="dropdown">
+
+                            <a class="{%if 'feuillederoute' in foo %}menuActif{%endif%}" href="{{ path('feuillederoute') }}">Feuile De Route</a>
+                        </li>
+                        {%endif%}
+                        {% if role.affClientCompeFDL or role.upClientCompeFDL or role.delClientCompeFDL or role.crClientCompeFDL 
+                          or role.affClientNnCompeFDL or role.upClientNnCompeFDL or role.delClientNnCompeFDL or role.crClientNnCompeFDL
+                          or role.confRecDocCtm or role.confRecDocClient %}
+                        <li class="">
+
+                            <a class="{%if 'missionaffretement' in foo%}menuActif{%endif%}"
+                               id="feuilledemission" href="{{ path('missionaffretement') }}" >Feuille D'Affretement</a>
+                        </li>
+                        {%endif%}
+                        {% if role.affDepot or role.upDepot or role.delDepot or role.crDepot or role.affFiliale or role.upFiliale or role.delFiliale or role.crFiliale  
+                           or role.affSecteur or role.upSecteur or role.delSecteur or role.crSecteur or role.affTypePrestation or role.upTypePrestation or role.delTypePrestation 
+                           or role.crTypePrestation or role.affChauffeur or role.upChauffeur or role.delChauffeur or role.crChauffeur 
+                           or role.affVehicule or role.upVehicule or role.delVehicule or role.crVehicule or role.affTypeConsommation 
+or role.upTypeConsommation or role.delTypeConsommation or role.crTypeConsommation or role.affBonCarburantHuile 
+or role.upBonCarburantHuile or role.delBonCarburantHuile or role.crBonCarburantHuile or role.affDepot 
+or role.upDepot or role.delDepot or role.crDepot or role.affUtilisateur or role.upUtilisateur 
+or role.delUtilisateur or role.crUtilisateur or role.affClient or role.upClient or role.delClient 
+or role.crClient or role.affRole or role.upRole or role.delRole or role.crRole or role.affVille or role.upVille or role.delVille or role.crVille%}
+
+                        <li class="dropdown">
+
+                            <a class="{%if  'depot' in foo or 'filiale' in foo
+                                       or 'typeprestation' in foo or 'secteur' in foo or 'peage' in foo or 'client' in foo or 'manutentionnaire' in foo
+                                       or 'role' in foo or 'chauffeur' in foo or 'vehicule' in foo 
+                                       or 'ville' in foo or 'typeconsommation' in foo or 'boncarburanthuile' in foo or foo is sameas('user') 
+                                       or foo is sameas('user_edit') or foo is sameas('user_show') or foo is sameas('user_recherche')  %}menuActif{%endif%}"
+                               href="#" id="autreGestion" class="dropdown-toggle" data-toggle="dropdown">Autre Gestion <strong><b class="caret"></b></strong></a>
+                            <ul class="dropdown-menu">
+                                {% if role.affDepot or role.upDepot or role.delDepot or role.crDepot%}
+                                <li><a href="{{ path('depot') }}" 
+                                       class="{%if 'depot' in foo%}ssmenuActif{%endif%}">Gestion Depôts</a></li>
+                                {%endif%} 
+                                {% if role.affFiliale or role.upFiliale or role.delFiliale or role.crFiliale %}
+                                <li><a href="{{ path('filiale') }}" 
+                                       class="{%if 'filiale' in foo%}ssmenuActif{%endif%}">Gestion Filiales</a></li>
+                                {%endif%} 
+                                {% if role.affSecteur or role.upSecteur or role.delSecteur or role.crSecteur%}
+                                <li><a href="{{ path('secteur') }}" 
+                                       class="{%if 'secteur' in foo%}ssmenuActif{%endif%}">Gestion Secteurs/Itin&eacute;raires</a></li>
+                                {%endif%} 
+                                {% if role.affTypePrestation or role.upTypePrestation or role.delTypePrestation or role.crTypePrestation%}
+                                <li><a href="{{ path('typeprestation') }}" 
+                                       class="{%if 'typeprestation' in foo%}ssmenuActif{%endif%}">Gestion Types de prestation</a></li>
+                                {%endif%} 
+                                {% if role.affTypeConsommation or role.upTypeConsommation or role.delTypeConsommation or role.crTypeConsommation or 
+                                   role.affBonCarburantHuile or role.upBonCarburantHuile or role.delBonCarburantHuile or role.crBonCarburantHuile or
+                                   role.affPeage or role.upPeage or role.delPeage or role.crPeage or
+                                   role.affVille or role.upVille or role.delVille or role.crVille or
+                                   role.affVehicule or role.upVehicule or role.delVehicule or role.crVehicule %}
+                                <li class="divider"></li>
+                                {%endif%}
+                                
+                                {% if role.affTypeConsommation or role.upTypeConsommation or role.delTypeConsommation or role.crTypeConsommation%}
+                                <li><a href="{{ path('typeconsommation') }}" 
+                                       class="{%if 'typeconsommation' in foo%}ssmenuActif{%endif%}">Gestion Types de Consommation</a></li>
+                                {%endif%}
+                                {% if role.affBonCarburantHuile or role.upBonCarburantHuile or role.delBonCarburantHuile or role.crBonCarburantHuile%}
+                                <li><a href="{{ path('boncarburanthuile') }}" 
+                                       class="{%if 'boncarburanthuile' in foo%}ssmenuActif{%endif%}">Gestion Bons de carburant</a></li>
+                                {%endif%} 
+                                {% if role.affPeage or role.upPeage or role.delPeage or role.crPeage%}
+                                <li><a href="{{ path('peage') }}" 
+                                       class="{%if 'peage' in foo%}ssmenuActif{%endif%}">Gestion Peage</a></li>
+                                {%endif%}
+                                {% if role.affVille or role.upVille or role.delVille or role.crVille%}
+                                <li><a href="{{ path('ville') }}" 
+                                       class="{%if 'ville' in foo%}ssmenuActif{%endif%}">Gestion Villes</a></li>
+                                {%endif%} 
+                                       {% if role.affVehicule or role.upVehicule or role.delVehicule or role.crVehicule%}
+                                <li><a href="{{ path('vehicule') }}" 
+                                       class="{%if 'vehicule' in foo%}ssmenuActif{%endif%}">Gestion V&eacute;hicules</a></li>
+                                {%endif%}
+                                 {% if role.affUtilisateur or role.upUtilisateur or role.delUtilisateur or role.crUtilisateur or 
+                                   role.affManutentionnaire or role.upManutentionnaire or role.delManutentionnaire or role.crManutentionnaire or
+                                   role.affClient or role.upClient or role.delClient or role.crClient or
+                                   role.affRole or role.upRole or role.delRole or role.crRole %}
+                                <li class="divider"></li>
+                                {%endif%}
+                                
+                                {% if role.affChauffeur or role.upChauffeur or role.delChauffeur or role.crChauffeur%}
+
+                                <li><a href="{{ path('chauffeur') }}" 
+                                       class="{%if 'chauffeur' in foo%}ssmenuActif{%endif%}">Gestion Chauffeurs</a></li>
+                                {%endif%} 
+
+                                {% if role.affManutentionnaire or role.upManutentionnaire or role.delManutentionnaire or role.crManutentionnaire%}
+                                <li><a href="{{ path('manutentionnaire') }}" 
+                                       class="{%if 'manutentionnaire' in foo%}ssmenuActif{%endif%}">Gestion manutentionnaires</a></li>
+                                {%endif%} 
+                                       {% if role.affUtilisateur or role.upUtilisateur or role.delUtilisateur or role.crUtilisateur%}
+                                <li><a href="{{ path('user') }}" 
+                                       class="{%if foo is sameas('user') 
+                                       or foo is sameas('user_edit') 
+                                       or foo is sameas('user_recherche') 
+                                       or foo is sameas('user_show')%}ssmenuActif{%endif%}">Gestion Utilisateurs</a></li>
+                                {%endif%} 
+                                {#endif#} 
+                                {% if role.affClient or role.upClient or role.delClient or role.crClient%}
+                                <li><a href="{{ path('client') }}" 
+                                       class="{%if 'client' in foo%}ssmenuActif{%endif%}">Gestion Clients</a></li>
+                               {%endif%} 
+                                {% if role.affRole or role.upRole or role.delRole or role.crRole%}
+                                <li><a href="{{ path('role') }}" 
+                                       class="{%if 'role' in foo%}ssmenuActif{%endif%}">Gestion Roles</a></li>
+                                {%endif%} 
+
+                            </ul>
+                        </li>
+                        {%endif%}
+                         {%if role.affModification or role.delModification%}
+                        <li>
+
+                            <a class="{%if 'modification' in foo  %}menuActif{%endif%}" href="{{ path('modification') }}">Modifications</a>
+                        </li>
+                        {%endif%}
+
+                        {%if role.editerPercentAssurParam or role.editerPlageHoraireParam%}
+                        <li>
+
+                            <a class="{%if 'parametrage' in foo %}menuActif{%endif%}" href="{{ path('parametrage') }}">Parametrage</a>
+                        </li>
+                        {%endif%}
+                        {%if role.reporting%}
+                        <li>
+
+                            <a class="{%if  foo is sameas('reporting') or foo is sameas('etatExcel') or foo is sameas('groupeVehicule') or foo is sameas('groupeMateriel')%}menuActif{%endif%}" href="{{ path('reporting') }}">Reporting</a>
+                        </li>
+                        {%endif%}
+                        <li class="dropdown">
+                            <a href="#" id="profil" class="dropdown-toggle  {%if 'profile' in foo or 'fos_user_change_password' in foo %}menuActif{%endif%}" data-toggle="dropdown">Profil <strong><b class="caret"></b></strong></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('fos_user_profile_show') }}" class="{%if 'fos_user_profile_show' in foo %}ssmenuActif{%endif%}">Afficher</a></li>
+                                <li><a href="{{ path('fos_user_change_password') }}" class="{%if 'fos_user_change_password' in foo%}ssmenuActif{%endif%}">Changer le mot de passe</a></li>                            
+                            </ul>
+                        </li>
+
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+       {%endif%}
+            <hr/>
+            {%if true or app.user.roles[0]=='ROLE_ADMIN'%}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+            <div class="flash-{{ type }}">
+                    {{ message }}
+            </div>
+            {% endfor %}
+        {% endfor %}
+           {%endif%}
+
+            {% block fos_user_content %}
+
+            {% endblock fos_user_content %}
+            <input type="hidden" id="varUrlAccueil" value="{{ app.request.server.get("SERVER_NAME") }}{{ app.request.server.get("BASE") }}">
+            {% block javascripts %}
+         {% javascripts '@FdrAdminBundle/Resources/public/js/*'  output='js/compiled/main.js'%}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+         {% endjavascripts %}
+
+            <script type="text/javascript" src="{{ asset('divers/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('divers/run_prettify.js') }}"></script>
+         {% endblock %}
+
+    {% block footer %}
+            <footer>
+                <div class="row-fluid">
+                    <div class="span12">  
+                        <div class="pull-left">    
+                            &copy; Copyright {{"now"|date('Y')}} / <a href="http://www.ctm-messagerie.ma/" title="Komay">CTM Messagerie</a>.        
+                        </div>
+                    </div>
+                </div>
+               
+                </div>
+            </footer>
+         {% endblock %}
+        </div>
+    </body>
+</html>

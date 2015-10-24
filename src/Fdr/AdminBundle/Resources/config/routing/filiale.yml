@@ -1,0 +1,30 @@
+filiale:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Filiale:index" }
+
+filiale_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Filiale:show" }
+
+filiale_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Filiale:new" }
+
+filiale_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Filiale:create" }
+    methods:  POST
+
+filiale_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Filiale:edit" }
+
+filiale_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Filiale:update" }
+    methods:  [POST, PUT]
+
+filiale_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Filiale:delete" }
+    methods:  [POST, DELETE]

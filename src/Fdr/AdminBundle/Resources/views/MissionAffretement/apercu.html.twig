@@ -1,0 +1,199 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="ismailkomay"/>
+        <meta name="author" content="ismailkomay"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!--link type="text/css" rel="stylesheet" href="./imprime.css" /-->
+        <style type="text/css">
+            table fieldset table tr td,table fieldset table tr th{
+                padding-bottom: 5px;
+                width: 200px;
+                background-color: transparent;
+                max-width: 200px;
+                margin-left: 10px;
+                margin-right: 10px;
+                vertical-align: top;
+            }
+            tr{
+                padding-bottom: 5px;
+            }
+            legend{
+                color: blue;background-color: white;border:1px outset #FBE1E1;padding: 8px;
+                alignment-adjust: central;
+                text-align: center;
+                 float: inside;
+            }
+            span.nb{
+                font-size: xx-small;
+                color: #0000A8;
+            }
+            h2{
+                position: absolute;text-align: center;float: inside;color:#699FCD;font-style:italic;
+            }
+            fieldset{
+                border:1px outset #FBE1E1;padding: 5px;margin: 5px;
+            }
+
+           hr {width: 100%; border: none; background-color: #DDDDFF; border-top: solid 1mm #F00; padding: 2mm}
+        </style>
+        
+    </head>
+    <body>
+        <img src="./bundles/fdradmin/images/ctm.png" alt="CTM" title="CTM ME" />
+        <h2>
+            Imprimé De Feuille d'Affrêtement ({{entity}})</h2>
+        <hr/>
+            
+        <table>
+            <tr>
+                <td>
+        <fieldset >
+            <legend >Information sur impression : <span class="nb">[[page_nb]] page(s)</span></legend>
+            <table>
+                <tr><th>Code de la feuille  </th><td> {{entity.id}}</td></tr>
+                <tr><th>Etat de la feuille  </th><td>{{entity.etat|capitalize}}</td> </tr>
+                <tr>
+                    <th>Date/Heure d'impression  </th>
+                    <td>{{"now"|date('d-m-Y H:i')}}</td> </tr>
+                <tr>
+                    <th>Utilisateur </th>
+                    <td>{{user.nom ~' '~user.prenom~" ("~user.matricule~")"}}</td></tr>
+            </table>
+        </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+        
+        <fieldset >
+            <legend >Client </legend>
+            <table>
+                                <tr>
+                                    <th>Coordonnés Client </th>
+                                    <td>{{entity.client|default('------')|trim('*/')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Client Destinataire </th>
+                                    <td>{{entity.clientDestinataire|default('------')|trim('*/')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom du responsable </th>
+                                    <td>{{entity.nomresponsable|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tél. du responsable  </th>
+                                    <td>{{entity.telresponsable|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Documents joints </th>
+                                    <td>
+        {% if entity.ecc %} ECC,&nbsp;{%endif %}
+        {%  if entity.ebl %} EBL,&nbsp;{%endif %}
+        {%  if entity.ect %} ECT,&nbsp;{%endif %}
+        {%  if entity.espece %} Espèce,&nbsp;{%endif %}
+        {%  if entity.autredoc and entity.autredoc is defined and not null %}et autre : {{entity.autredoc}}{%endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Etat de Montant</th>
+                                    <td>
+ {% if entity.montantregle or entity.client.encompte %}
+                                        Réglé
+ {%else %}
+                                        Non réglé
+{%endif %}
+
+                                    </td>
+                                </tr>
+                        </table>
+        </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+        <fieldset style="border:1px outset #FBE1E1;padding: 5px;margin: 5px;;width: 50px">
+            <legend >Ramassage  </legend>
+            <table>
+                                <tr>
+                                    <th>Date de Ramassage </th>
+                                    <td>{{entity.dateramassage|date('d-m-Y H:i')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lieu de Ramassage </th>
+                                    <td>{{entity.lieuramassage|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Type Vehicule demandé </th>
+                                    <td>{{entity.typeVehicule|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nature de marchandises </th>
+                                    <td>{{entity.naturemarchandise|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de colis</th>
+                                    <td>{{entity.nbrecolis|default('0')}}</td>
+                                </tr>
+                        </table>
+        </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+        <fieldset >
+            <legend >Livraison  </legend>
+            <table>
+                                <tr>
+                                    <th>Date de Livraison </th>
+                                    <td>{{entity.datelivraison|date('d-m-Y H:i')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lieu de Livraison </th>
+                                    <td>{{entity.lieulivraison|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Bon de livraison </th>
+                                    <td>{{entity.bonlivraison|default('------')}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Numéro d'expédition </th>
+                                    <td>{{entity.numexpedition|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de Manutentions </th>
+                                    <td>{{entity.nombreManutentionVoulu|default('0')}}</td>
+                                </tr>
+                        </table>
+        </fieldset>
+                </td> </tr>
+            <tr><td>
+    
+        <fieldset >
+            <legend >Assurances/Banque   </legend>
+            <table>
+                                <tr>
+                                    <th>Valeur Assurance(Dhs) </th>
+                                    <td>{{entity.valdeclassurance|default('0')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom de la banque</th>
+                                    <td>{{entity.nombnq|default('------')}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Numéro de chèque</th>
+                                    <td>{{entity.numcheque|default('------')}}</td>
+                                </tr>
+                        </table> 
+        </fieldset>
+                </td>
+            </tr>
+        </table>
+        <page_footer>
+    <hr/> &copy; Copyright &copy;  {{"now"|date('Y')}} / <a href="http://www.ctm-messagerie.ma/" title="ctmMess">CTM Messagerie</a>
+    </page_footer>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+peage:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Peage:index" }
+
+peage_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Peage:show" }

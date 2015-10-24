@@ -1,0 +1,67 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}TypeConsommation|Edit{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Modification d'une Type de Consommation</h1></div>
+
+
+
+{{ form_start(edit_form) }}
+<div class="row">
+    <span class="alert-danger ">{{ form_errors(edit_form) }}</span>
+</div>
+
+<div class="row">
+
+    <div class="span6 offset3">
+
+        <fieldset>
+            <legend>Formulaire de modification</legend>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.type," Type ") }}</div>
+{{ form_widget(edit_form.type) }}<span class="alert-danger ">{{ form_errors(edit_form.type) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.depot," Agence ") }}</div>
+{{ form_widget(edit_form.depot) }}<span class="alert-danger ">{{ form_errors(edit_form.depot) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.ville,"Ville ") }}</div>
+{{ form_widget(edit_form.ville) }}<span class="alert-danger ">{{ form_errors(edit_form.ville) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.produit," Produit ") }}</div>
+{{ form_widget(edit_form.produit) }}<span class="alert-danger ">{{ form_errors(edit_form.produit) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.prixUnitaire," Prix Unitaire ") }}</div>
+{{ form_widget(edit_form.prixUnitaire) }}<span class="alert-danger ">{{ form_errors(edit_form.prixUnitaire) }}</span>
+            </div>
+            <br/>
+            <div class="row-fluid">
+    <div class="span12 center-block">
+{{ form_widget(edit_form.submit) }}
+    </div>
+            </div>
+
+
+        </fieldset>
+
+    </div>
+</div>
+{{ form_end(edit_form) }}
+
+<br/>
+{% if role.affTypeConsommation%}
+<div class="row-fluid">
+    <a  href="{{ path('typeconsommation') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+
+{% endblock fos_user_content %}

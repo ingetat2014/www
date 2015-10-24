@@ -1,0 +1,236 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Feuille d'Affretement|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h2> Affichage d'une feuille D'Affretement({{entity}})</h2></div>
+
+<div class="span12">
+    <div class="row-fluid">
+        <div class="span2 desactiver-champs">{{ form_label(form.id,"Code :") }}
+        {{ form_widget(form.id) }}<span class="alert-danger ">{{ form_errors(form.id) }}</span></div>
+        <div class="span2 desactiver-champs">{{ form_label(form.etat,"Etat :") }}
+        {{ form_widget(form.etat) }}<span class="alert-danger ">{{ form_errors(form.etat) }}</span></div>
+        <div class="span3">{{ form_label(form.dateGeneree,"Date d'ouverture :") }}
+        {{ form_widget(form.dateGeneree) }}</div>
+{%if role.imprimerFDL%}
+        <div class="span1 offset3" >
+    {% if entity.etat is not sameas('annuler') %}
+    {{ form_start(apercu_form, {'attr': {'target': '_blank'}}) }}{{ form(apercu_form) }}{{ form_end(apercu_form) }}
+     {% endif%}
+        </div>
+        <div class="span1" >
+    {% if entity.etat is sameas('cloturer') %}
+{{ form_start(save_form, {'attr': {'id': 'save'}}) }}{{ form(save_form) }}{{ form_end(save_form) }}
+{% endif%}
+        </div>
+{%endif%}
+    </div>
+</div>
+
+<div class="desactiver-champs">
+{{ form_start(form) }}
+
+    <div class="row">
+        <span class="alert-danger ">{{ form_errors(form) }}</span>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <fieldset>
+                <legend>Ramassage : </legend>
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.dateramassage," ") }}</div>
+{{ form_widget(form.dateramassage) }}<span class="alert-danger ">{{ form_errors(form.dateramassage) }}</span>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.lieuramassage," ") }}</div>
+{{ form_widget(form.lieuramassage,{ 'attr': {'class': 'disable-input','disabled':true} }) }}<span class="alert-danger ">{{ form_errors(form.lieuramassage) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.typeVehicule," ") }}</div>
+                    <span class="">{{ form_widget(form.typeVehicule) }}</span>
+                    <span class="alert-danger ">{{ form_errors(form.typeVehicule) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.nombreManutentionVoulu," ") }}</div>
+{{ form_widget(form.nombreManutentionVoulu) }}<span class="alert-danger ">{{ form_errors(form.nombreManutentionVoulu) }}</span>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="span4">
+            <fieldset> 
+                <legend>Livraison : </legend>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.datelivraison," ") }}</div>
+{{ form_widget(form.datelivraison) }}<span class="alert-danger ">{{ form_errors(form.datelivraison) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.lieulivraison," ") }}</div>
+{{ form_widget(form.lieulivraison) }}<span class="alert-danger ">{{ form_errors(form.lieulivraison) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.naturemarchandise," ") }}</div>
+{{ form_widget(form.naturemarchandise) }}<span class="alert-danger ">{{ form_errors(form.naturemarchandise) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.nbrecolis," ") }}</div>
+{{ form_widget(form.nbrecolis) }}<span class="alert-danger ">{{ form_errors(form.nbrecolis) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.bonlivraison," ") }}</div>
+{{ form_widget(form.bonlivraison) }}<span class="alert-danger ">{{ form_errors(form.bonlivraison) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.numexpedition," ") }}</div>
+{{ form_widget(form.numexpedition) }}<span class="alert-danger ">{{ form_errors(form.numexpedition) }}</span>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="span3">
+            <fieldset>
+                <legend>P.J. :</legend>
+                <div class="span2">{{ form_widget(form.ecc) }} <span class="alert-danger ">{{ form_errors(form.ecc) }}</span>  {{ form_label(form.ecc,"ECC") }}</div>
+                <div class="span2">{{ form_widget(form.ect) }} <span class="alert-danger ">{{ form_errors(form.ect) }}</span>  {{ form_label(form.ect,"ECT") }}</div>
+                <div class="span2">{{ form_widget(form.ebl) }}<span class="alert-danger ">{{ form_errors(form.ebl) }}</span> {{ form_label(form.ebl,"EBL") }}</div>
+                <div class="span2">{{ form_widget(form.espece) }}<span class="alert-danger ">{{ form_errors(form.espece) }}</span> {{ form_label(form.espece,"ESPECE") }}</div>
+                <div class="span2">{{ form_label(form.autredoc," ") }} <span class="alert-danger ">{{ form_errors(form.autredoc) }}</span>  {{ form_widget(form.autredoc) }}</div>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="span4">
+            <fieldset> 
+                <legend>Contact client : </legend>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.client," ") }}</div>
+<span class="">{{ form_widget(form.client) }}</span><span class="alert-danger ">{{ form_errors(form.client) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.clientDestinataire," ") }}</div>
+{{ form_widget(form.clientDestinataire) }}<span class="alert-danger ">{{ form_errors(form.clientDestinataire) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.nomresponsable," ") }}</div>
+{{ form_widget(form.nomresponsable) }}<span class="alert-danger ">{{ form_errors(form.nomresponsable) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.telresponsable," ") }}</div>
+{{ form_widget(form.telresponsable) }}<span class="alert-danger ">{{ form_errors(form.telresponsable) }}</span>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="span4 cacher">
+            <fieldset> 
+                <legend>Facture client : </legend>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.montantfacture," ") }}</div>
+{{ form_widget(form.montantfacture) }}<span class="alert-danger ">{{ form_errors(form.montantfacture) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.remise," ") }}</div>
+{{ form_widget(form.remise) }}<span class="alert-danger ">{{ form_errors(form.remise) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.motifremise," ") }}</div>
+{{ form_widget(form.motifremise) }}<span class="alert-danger ">{{ form_errors(form.motifremise) }}</span>
+                </div>
+
+                <div class="row-fluid">
+ {% if entity.montantregle or entity.client.encompte %}
+{{ form_widget(form.montantregle, {'attr': {'checked': true}}) }}
+ {%else %}
+{{ form_widget(form.montantregle, {'attr': {'checked': false}}) }}
+{%endif %}
+                    <span class="alert-danger ">{{ form_errors(form.montantregle) }}</span>
+{{ form_label(form.montantregle,"Regle") }}
+                </div>
+
+            </fieldset>
+        </div> 
+
+        <div class="span3">
+            <fieldset> 
+                <legend>Asssurance/Banque : </legend>
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.valdeclassurance," ") }}</div>
+{{ form_widget(form.valdeclassurance) }}<span class="alert-danger ">{{ form_errors(form.valdeclassurance) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.nombnq," ") }}</div>
+{{ form_widget(form.nombnq) }}<span class="alert-danger ">{{ form_errors(form.nombnq) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span1">{{ form_label(form.numcheque," ") }}</div>
+{{ form_widget(form.numcheque) }}<span class="alert-danger ">{{ form_errors(form.numcheque) }}</span>
+                </div>
+
+            </fieldset>
+
+        </div>
+    </div>
+    <div class="row-flluid">
+        <div class="span6">
+            <span class="span1">{{ form_widget(form.confRecDocClient) }}</span>
+{{ form_label(form.confRecDocClient," Confirmation de reception des documents de la part du client") }}
+            <span class="alert-danger ">{{ form_errors(form.confRecDocClient) }}</span>
+        </div>
+
+        <div class="span6">
+            <span class="span1"> {{ form_widget(form.confRecDocCtm) }}</span>
+{{ form_label(form.confRecDocCtm," Confirmation de reception des documents de la part du CTM") }}
+            <span class="alert-danger ">{{ form_errors(form.confRecDocCtm) }}</span>
+        </div>
+
+    </div>  
+{{ form_end(form) }}
+</div>
+<div class="row-fluid">
+    <a target="_blank" href="{{ path('missionaffretement') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+<script>
+
+    $("#form_enregistrerFdl").confirm({
+        title: "Confirmation d'impression",
+        text: "Voulez-vous vraiment imprimer cette feuille ? ",
+        post: true,
+        confirm: function(button) {
+            button.fadeOut(500).fadeIn(500);
+            $("#form_enregistrerFdl").parent().parent().parent().submit();
+        },
+        cancel: function(button) {
+            button.fadeOut(500).fadeIn(500);
+            button.preventDefault();
+        },
+        confirmButton: "Oui, J'en veux",
+        cancelButton: "Non, Merci"
+    });
+
+</script>
+{% endblock %}
+{% endblock fos_user_content %}

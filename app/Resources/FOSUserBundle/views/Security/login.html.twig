@@ -1,0 +1,53 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block title %}Page d'authentification{% endblock %}
+{% block fos_user_content %}
+
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <div class="row-fluid">
+        <div class="span6 offset3 text-center">  
+            <fieldset>
+                <legend>Formulaire de connexion
+                </legend>
+
+                <div class="row-fluid">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                </div>
+               
+    {% if error %}
+                 <div class="row-fluid">
+                    <span class="text-primary text-danger">
+        {% if error.messageKey|trans(error.messageData, 'security') is not sameas('Droits invalides.') %}
+         {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </span>
+        {% else %}
+                     <span class="text-error">Les coordonnées ne semblent pas correctes</span>
+        {% endif %}
+                    
+                     </div>
+                <br/>
+{% endif %}
+               
+                
+                <div class="row-fluid">
+                    <div class="span4 text-left"><label for="username">Nom d'utilisateur/Email</label></div>
+                    <div class="span4"><input  type="text" id="username" name="_username" value="{{ last_username }}" required="required" /></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 text-left"><label for="password">{{ 'security.login.password'|trans }}</label></div>
+                    <div class="span4"><input  type="password" id="password" name="_password" required="required" /></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 text-right"><input type="checkbox" id="remember_me" name="_remember_me" value="on" /></div>
+                    <div class="span4"><label for="remember_me">{{ 'security.login.remember_me'|trans }}</label></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6 offset1 text-center"><input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" /></div>
+                </div>
+
+        </fieldset>
+    </div>
+</div>
+</form>
+{% endblock fos_user_content %}

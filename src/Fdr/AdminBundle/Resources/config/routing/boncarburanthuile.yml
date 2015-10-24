@@ -1,0 +1,7 @@
+boncarburanthuile:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:BonCarburantHuile:index" }
+
+boncarburanthuile_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:BonCarburantHuile:show" }

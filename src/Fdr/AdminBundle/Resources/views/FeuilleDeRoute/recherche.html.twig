@@ -1,0 +1,221 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Feuille De Route|Recherche{% endblock %}
+{% block fos_user_content %}
+
+{% block body -%}
+
+<div class="row-fluid">
+    <h2> Feuilles De Route Recherche  :</h2>
+    <div class="row-fluid anime">
+        <span class="btn-bg"> {{etatfdr|capitalize}} &#10174; </span> <span class="text-primary badge "> {{par}}</span> &#10174; <span class="badge"> {{keyword=="*-*"?"Toutes":keyword}} </span>
+    </div>
+</div>
+    {%if role.rechercherFDR %}
+    {{ form_start(search_form) }}  
+<div class="row-fluid">
+    <div class="span7 offset5">
+{{ form_label(search_form.etatfdr," ") }}{{ form_widget(search_form.etatfdr) }}<span class="alert-danger ">{{ form_errors(search_form.etatfdr) }}</span>
+{{ form_label(search_form.par," ") }}{{ form_widget(search_form.par) }}<span class="alert-danger ">{{ form_errors(search_form.par) }}</span>
+{{ form_label(search_form.libelle," ") }}{{ form_widget(search_form.libelle) }} <span class="alert-danger ">{{ form_errors(search_form.libelle) }}</span>
+{{ form_label(search_form.submit," ") }}{{ form_widget(search_form.submit) }}
+    </div>
+</div>
+    {{ form_end(search_form) }} 
+    {%endif%}
+<div class="row-fluid">
+    {%if role.crFDR or role.crFDRPanne or role.crFDRAutrAgence%}
+    <div class="span3">
+
+        <a target="_blank" href="{{ path('feuillederoute_new') }}">
+            <button class="btn btn-default">
+                Ajouter une nouvelle entit&eacute;
+            </button>
+        </a>
+    </div>
+{%endif%}
+         {%if role.upFDR or role.crFDRPanne or role.cloturerFDR or role.UpCloturerFDR%}
+    <div class="span3">
+
+            {% if app.request.attributes.get("_route") is not sameas('feuillederoute_all')%}
+        <a href="{{ path('feuillederoute_all') }}">
+            <button class="btn btn-default">
+
+                Afficher toutes les feuilles de route
+            </button>
+        </a>
+               {%else%}
+        <a href="{{ path('feuillederoute') }}">
+            <button class="btn btn-default">
+                Revenir à la liste des fdr ouvertes
+            </button>
+        </a>
+               {%endif%}
+        </button>
+        </a>
+    </div>
+        {%endif%}
+</div>
+<br/>
+<div class="row-fluid">
+    <table class="table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Depot/Filiale</th>
+                <th>D&eacute;but_Mission</th>
+                <th>Chauffeur(s)/Manutentionnaire(s)</th>
+                <th>Nb.Manu.</th>
+                <th>V&eacute;hicule</th>
+                <th>Compteur r&eacute;el(Km)</th>
+                <th>Prestation</th>
+                <th>Etat</th>
+                <th>Date d'ouverture de Feuille</th>
+                <th>Propriétaire</th>
+                <th><h1 style="color: transparent;width: 100px"></h1></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.depot }}</td>
+                <td>{% if entity.dateDebutMission %}{{ entity.dateDebutMission|date('d-m-Y H:i:s') }}{% endif %}</td>
+                <td>
+                    <ol>
+                {% for man in entity.manutentions %}
+                        <li><input type="text" value="{{man}}" size="35" readonly/></li>                     
+                {% endfor %}
+                    </ol>
+                </td>
+                <td>{% if entity.nombreManutention %}{{ entity.nombreManutention}} {% else %} 0 {% endif %}</td>
+                <td>{{ entity.vehicule }}</td>
+                <td>{{ entity.compteurReel }}</td>
+                <td>{{ entity.typePrestation }}
+                    {% if entity.missionaffretement %}
+                    {%if role.affClientCompeFDL or role.affClientNnCompeFDL or role.imprimerFDL%}
+                <a target="_blank" href="{{ path('missionaffretement_show', { 'id': entity.missionAffretement.id }) }}">
+                    <strong title="Feuille affrêtement : {{ entity.missionaffretement.etat }},Nombre Manutentions:{{ entity.missionaffretement.nombreManutentionVoulu }}, Cliquer pour plus">({{entity.missionaffretement}})</strong>
+                </a>
+                {% endif %}
+                {% endif %}
+                </td>
+                <td>{{entity.etat }}<span class="bg-info">{{ entity.fdrInstance?" (en instance)":"" }}</span></td>
+                <td>{% if entity.dateGeneree %}{{ entity.dateGeneree|date('d-m-Y H:i') }}{% endif %}</td>
+                <td title="{{entity.user.email|default("-----") }}">{{entity.user|default("-----") }}</td>
+                <td class="col-md-12">
+                     {%if role is defined and role is not null%}
+                        {%if role.affFDR or role.imprimerFDR%}
+                        <div class="col-md-2">
+                            
+                                <a target="_blank" href="{{ path('feuillederoute_show', { 'id': entity.id }) }}">
+                                  <button class="btn-default" title="Afficher" type="submit">  <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                               </button>  </a> 
+                           
+                        </div>
+                        {%endif%}
+                        {%if role.editCompteur  or role.affectationChauffManu or role.affectationVehicule %}
+                          {% if entity.etat|lower is not sameas('annuler') %}
+                                    {% if not entity.missionAffretement %}
+                                    {%if entity.etat|lower is not sameas('orpheline') and entity.typePrestation|lower|slice(0, 3) is not sameas('aff') %}
+                        <div class="col-md-2">
+                           
+                                <a target="_blank" href="{{ path('feuillederoute_editdebut', { 'id': entity.id }) }}">
+                                    <button class="btn-default" type="submit"> <img id="inputButtonAfficher" title="Editer le d&eacute;but de mission ({{entity.typePrestation}})" src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                            </button>    </a>
+                            
+                        </div>
+                                    {%endif%}
+                                    {%else%}
+                        <div class="col-md-2">
+                            
+                                <a target="_blank" href="{{ path('feuillederoute_new_fdl', { 'id': entity.missionAffretement.id }) }}">
+                                 <button class="btn-default" type="submit">   <img id="inputButtonAfficher" title="Editer le d&eacute;but de mission de l'affrêtement ({{entity.missionAffretement}})" src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                              </button>  </a> 
+                            
+                        </div>
+                                    {%endif%}
+                    {%endif%}
+
+
+                        {%endif%}
+
+                        {%if role.cloturerFDR%}
+                    
+                       {%if (entity.etat is sameas("cloturer")) or ( entity.etat is sameas("ouverte") and not entity.fdrInstance )%}                      
+                        <div class="col-md-2">
+                            <a target="_blank"  href="{{ path('feuillederoute_updatecloture', { 'id': entity.id }) }}">
+                            <button class="btn-default" title="{%if entity.etat is not sameas("cloturer")%}Clôturer{%else%}Modifier la clôture{%endif%}" type="submit">
+                                
+                                    C
+                              </button>  </a> 
+                            
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%if role.cancelFDR%}
+                        {% if entity.etat is sameas("ouverte")%}
+                        <div class="col-md-2">
+                                {{ form(cancel_form[entity.id]) }}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%if role.delFDR%}
+                        <div class="col-md-2">
+                                {{ form(delete_form[entity.id]) }}
+                        </div>
+                        {%endif%}
+                    {%endif%}
+                </td>
+            </tr>
+            {%else%}<tr> <td colspan="11">Aucune feuille de route répond à votre recherche :
+                    <a href="{{ path('feuillederoute') }}"> Revenir à la liste</a>
+                </td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('* [id*="form_supprimerFdr_"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de suppression : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus recupérée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment supprimer cette feuille ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non, Merci",
+            confirmButtonClass: "btn-danger"
+        });
+    }
+    );
+    $('* [id*="form_annulerFdr_"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation d'Annulation : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus restaurée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment Annuler cette feuille ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non,Merci",
+            confirmButtonClass: "btn-warning"
+        });
+    }
+    );
+</script>
+    {% endblock %}
+{% endblock fos_user_content %}

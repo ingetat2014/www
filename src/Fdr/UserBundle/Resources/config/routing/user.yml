@@ -1,0 +1,25 @@
+user:
+    path:     /
+    defaults: { _controller: "FdrUserBundle:User:index" }
+
+user_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrUserBundle:User:show" }
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrUserBundle:User:edit" }
+
+user_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrUserBundle:User:update" }
+    methods:  [POST, PUT]
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrUserBundle:User:delete" }
+    methods:  [POST, DELETE]
+user_recherche:
+    path:    /search
+    defaults: { _controller: "FdrUserBundle:User:recherche" }
+    methods:  GET

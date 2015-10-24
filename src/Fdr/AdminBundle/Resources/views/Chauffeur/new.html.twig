@@ -1,0 +1,101 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Chauffeur|New{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Ajout d'un Chauffeur</h1></div>
+
+
+
+{{ form_start(form) }}
+<div class="row">
+    <span class="alert-danger ">{{ form_errors(form) }}</span>
+</div>
+
+<div class="row">
+
+    <div class="span6 offset3">
+
+        <fieldset>
+            <legend>Formulaire d'ajout</legend>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.nom," Nom ") }}</div>
+{{ form_widget(form.nom) }}<span class="alert-danger ">{{ form_errors(form.nom) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.prenom," Prenom ") }}</div>
+{{ form_widget(form.prenom) }}<span class="alert-danger ">{{ form_errors(form.prenom) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.tel," Telephone ") }}</div>
+{{ form_widget(form.tel) }}<span class="alert-danger ">{{ form_errors(form.tel) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.matricule," CIN ") }}</div>
+{{ form_widget(form.cin) }}<span class="alert-danger ">{{ form_errors(form.cin) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.matricule," Matricule ") }}</div>
+{{ form_widget(form.matricule) }}<span class="alert-danger ">{{ form_errors(form.matricule) }}</span>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.adresse," Adresse ") }}</div>
+{{ form_widget(form.adresse) }}<span class="alert-danger ">{{ form_errors(form.adresse) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.dateembauche," Date d'embauche ") }}</div>
+{{ form_widget(form.dateembauche) }}<span class="alert-danger ">{{ form_errors(form.dateembauche) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.disponibilite," Disponible ") }}</div>
+{{ form_widget(form.disponibilite) }}<span class="alert-danger ">{{ form_errors(form.disponibilite) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.typeconvention," Type De Convention ") }}</div>
+{{ form_widget(form.typeconvention) }}<span class="alert-danger ">{{ form_errors(form.typeconvention) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.etatContrat," Etat de contrat ") }}</div>
+{{ form_widget(form.etatContrat) }}<span class="alert-danger ">{{ form_errors(form.etatContrat) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.conventionne," Conventionné ") }}</div>
+{{ form_widget(form.conventionne) }}<span class="alert-danger ">{{ form_errors(form.conventionne) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.depot," Depot ") }}</div>
+{{ form_widget(form.depot) }}<span class="alert-danger ">{{ form_errors(form.depot) }}</span>
+            </div>
+            <div class="row-fluid">
+    <div class="span12 center-block">
+{{ form_widget(form.submit) }}
+    </div>
+</div>
+
+        </fieldset>
+
+    </div>
+</div>
+{{ form_end(form) }}
+<br/>
+{% if role.affChauffeur%}
+<div class="row-fluid">
+    <a  href="{{ path('chauffeur') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+{% endblock fos_user_content %}
+
+

@@ -1,0 +1,62 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Reporting|Filtre{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+{{ form_start(form,{'attr':{'target':'_blank'}}) }}
+<div class="page-header">  <h2> Reporting </h2> </div>  
+<fieldset>
+    <div class="span6">
+    <legend>Formulaire de Filtre</legend>
+<div class="row-fluid">
+    <div class="span4">{{ form_label(form.dateDebut,"Date Début ") }}</div>
+{{ form_widget(form.dateDebut) }}<span class="alert-danger ">{{ form_errors(form.dateDebut) }}</span>
+</div>
+<div class="row-fluid">
+    <div class="span4">{{ form_label(form.dateFin,"Date Fin ") }}</div>
+{{ form_widget(form.dateFin) }}<span class="alert-danger ">{{ form_errors(form.dateFin) }}</span>
+</div>
+<br/>
+<div class="row-fluid">
+    <div class="span4">{{ form_label(form.type,"Type de filtre ") }}</div>
+{{ form_widget(form.type) }}<span class="alert-danger ">{{ form_errors(form.type) }}</span>
+</div>
+<div class="row-fluid">
+    <div class="span2">{{ form_label(form.vehicules,"  ") }}</div>
+{{ form_widget(form.vehicules) }}<span class="alert-danger ">{{ form_errors(form.vehicules) }}</span>
+
+    <div class="span2">{{ form_label(form.chauffeurs," ") }}</div>
+{{ form_widget(form.chauffeurs) }}<span class="alert-danger ">{{ form_errors(form.chauffeurs) }}</span>
+</div> 
+
+<div class="row-fluid">
+    <div class="span2 offset5">
+{{ form_widget(form.submit) }}
+    </div>
+</div>
+    </div>
+</fieldset>
+{{ form_end(form) }}
+
+<script type="text/javascript">
+    $('#form_chauffeurs').hide();
+    $('#form_vehicules').hide();
+    function rechercherReporting() {
+        var jr = 86400000;
+        var datedebut = $("#form_dateDebut").val();
+        var dateDebut = new Date(datedebut);
+        var datefin = $("#form_dateFin").val();
+        var dateFin = new Date(datefin);
+        var logique = (dateFin.getTime()>= dateDebut.getTime()+jr) ? true : false;
+        if (logique) {
+            return true;
+        }
+        else
+        {
+            alert('Periode illogique (la fin de période doit etre au minimum décalée d\'un jour par rapport le début de periode )'); 
+            return false;
+        }
+    }
+</script>
+
+{% endblock %}
+{% endblock fos_user_content %}

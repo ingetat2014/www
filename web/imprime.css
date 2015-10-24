@@ -1,0 +1,134 @@
+body{
+    padding: 25%;
+    border :0px solid #c7254e;
+}
+
+#body{
+    border : 0px ridge lightblue ;
+    margin-bottom: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+
+img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1000;
+    float: left;
+    width: 100px;
+    height: 60px;
+}
+
+h2{
+    position: absolute;
+    text-align: center;
+    float: inside;
+    color:#699FCD;
+    font-style:italic;
+    text-shadow:rgba(205, 205, 250, .7) .15em .15em .15em  
+}
+
+table{
+    border: 0px solid green;
+    vertical-align: top;
+    background-color: transparent;
+    width: 100%;
+}
+table tr td {
+    border: 0px solid transparent;
+    vertical-align: top;
+    width: 50%;
+    padding: 25%;
+    margin: 25%;
+}
+table tr {
+    padding: 25%;
+    margin: 25%;
+}
+table table {
+   width: 50%;
+   /*height: 100%;*/
+}
+table table tbody, td, th {
+    border: 0px solid lightblue;
+}
+
+table table tbody tr th {
+    background-color: #CEE8F0;
+    
+}
+
+table table tbody tr td,th {
+    vertical-align: central;
+     width: 100%;
+     padding: 7px;
+}
+
+table table thead tr th{
+    background-color: #CEE8F0;
+    color: black;
+    border-left: 1px inset #CDD7DC;
+    border-right: 1px inset #CDD7DC;
+    border-top: 1px inset #CDD7DC;
+    text-align: center;
+    vertical-align: top;
+    /*height: auto;*/
+}
+
+hr{
+    color: red;
+}
+
+.footer{
+    bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: -20px;  
+    text-align: left;
+    position: absolute;
+    font-size: 10px;
+    width: 100%;
+}
+
+table.entete{
+    color: black;
+    float: right;
+    margin-left: 10px;
+    padding: 10px;
+    width: 20%;
+}
+table.entete tr td{
+    vertical-align: top;
+    color: black;
+    float: right;
+    margin-left: 10px;
+    padding: 10px;
+    width: 20%;
+}
+table.entete table.entete tr td{
+    color: black;
+    float: right;
+    margin-left: 10px;
+    padding: 10px;
+    width: 100%;
+    
+}
+table.mesures tr th{
+ background-color : #99CCFF;   
+}
+td.ssmesure{
+    background-color: #F4F4FF;
+}
+.alert{
+    color:#a94442;
+    background-color:#f2dede;
+    border-color:#ebccd1
+}
+.image{
+    border: 2px solid black;
+}
+fieldset{
+    margin-right: 10px;
+    margin-bottom: 0px;
+}

@@ -1,0 +1,34 @@
+typeprestation:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:index" }
+
+typeprestation_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:show" }
+
+typeprestation_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:new" }
+
+typeprestation_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:create" }
+    methods:  POST
+
+typeprestation_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:edit" }
+
+typeprestation_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:update" }
+    methods:  [POST, PUT]
+
+typeprestation_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:delete" }
+    methods:  [POST, DELETE]
+typeprestation_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:TypePrestation:recherche" }
+    methods:  GET

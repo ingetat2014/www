@@ -1,0 +1,49 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}TypePrestation|New{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Ajout d'un TypePrestation</h1></div>
+
+
+
+{{ form_start(form) }}
+<div class="row">
+    <span class="alert-danger ">{{ form_errors(form) }}</span>
+</div>
+
+<div class="row">
+
+    <div class="span6 offset3">
+
+        <fieldset>
+            <legend>Formulaire d'ajout</legend>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(form.libelle," Libelle ") }}</div>
+{{ form_widget(form.libelle) }}<span class="alert-danger ">{{ form_errors(form.libelle) }}</span>
+            </div>
+            <br/>
+            <div class="row-fluid">
+    <div class="span12 center-block">
+{{ form_widget(form.submit) }}
+    </div>
+            </div>
+            
+
+
+        </fieldset>
+
+    </div>
+</div>
+{{ form_end(form) }}
+<br/>
+{% if role.affTypePrestation%}
+<div class="row-fluid">
+    <a  href="{{ path('typeprestation') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+
+{% endblock fos_user_content %}

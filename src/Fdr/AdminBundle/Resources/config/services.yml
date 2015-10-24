@@ -1,0 +1,26 @@
+#services:
+#    fdr_admin.example:
+#        class: Fdr\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+#parameters:
+#    parameter_name: value
+
+#services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+services:
+    my_mailer:
+        class:     Fdr\AdminBundle\Mailer\Mailer
+        arguments: [@swiftmailer.mailer]
+    entitie_manager:
+        class:     Fdr\AdminBundle\Services\Enmanager
+        arguments: [@security.context,@doctrine.orm.entity_manager]
+    kernel.listener.redirectListener:
+        class: Fdr\AdminBundle\EventListener\HookListener
+        arguments: [@service_container,@session]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException } 
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

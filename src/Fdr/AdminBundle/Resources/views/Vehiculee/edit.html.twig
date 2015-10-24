@@ -1,0 +1,81 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Vehicule|Edit{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Modification d'un Vehicule</h1></div>
+
+
+
+{{ form_start(edit_form) }}
+<div class="row">
+    <span class="alert-danger ">{{ form_errors(edit_form) }}</span>
+</div>
+
+<div class="row">
+
+    <div class="span6 offset3">
+
+        <fieldset>
+            <legend>Formulaire de modification</legend>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.numSociete," Num. Société ") }}</div>
+{{ form_widget(edit_form.numSociete) }}<span class="alert-danger ">{{ form_errors(edit_form.numSociete) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.type," Type ") }}</div>
+{{ form_widget(edit_form.type) }}<span class="alert-danger ">{{ form_errors(edit_form.type) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.remorque," Remorque ") }}</div>
+{{ form_widget(edit_form.remorque) }}<span class="alert-danger ">{{ form_errors(edit_form.remorque) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.disponibilite," Disponibilité ") }}</div>
+{{ form_widget(edit_form.disponibilite) }}<span class="alert-danger ">{{ form_errors(edit_form.disponibilite) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.vidange," Vidange ") }}</div>
+{{ form_widget(edit_form.vidange) }}<span class="alert-danger ">{{ form_errors(edit_form.vidange) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.compteur," Compteur ") }}</div>
+{{ form_widget(edit_form.compteur) }}<span class="alert-danger ">{{ form_errors(edit_form.compteur) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span5">{{ form_label(edit_form.matricule," Matricule ") }}</div>
+{{ form_widget(edit_form.matricule) }}<span class="alert-danger ">{{ form_errors(edit_form.matricule) }}</span>
+            </div>
+            
+            <div class="row-fluid">
+<div class="span5">{{ form_label(edit_form.dateLancement," Date de Lancement ") }}</div>
+{{ form_widget(edit_form.dateLancement) }}<span class="alert-danger ">{{ form_errors(edit_form.dateLancement) }}</span>
+</div>
+           <br/> 
+            <div class="row-fluid">
+    <div class="span12 center-block">
+{{ form_widget(edit_form.submit) }}
+    </div>
+            </div>
+
+        </fieldset>
+
+    </div>
+</div>
+{{ form_end(edit_form) }}
+<br/>
+{% if role.affVehicule%}
+<div class="row-fluid">
+    <a  href="{{ path('vehicule') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+{% endblock fos_user_content %}

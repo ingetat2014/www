@@ -1,0 +1,8 @@
+parametrage:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Parametrage:edit" }
+
+parametrage_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Parametrage:update" }
+    methods:  [POST, PUT]

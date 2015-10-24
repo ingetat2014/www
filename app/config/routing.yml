@@ -1,0 +1,27 @@
+fdr_user:
+    resource: "@FdrUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fdr_admin:
+    resource: "@FdrAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+test:
+    path:     /test
+    defaults: { _controller: "FdrAdminBundle:Default:test" }
+testrep:
+    path:     /testrep
+    defaults: { _controller: "FdrAdminBundle:Default:testrep" }
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation
+ 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /
+home_admin:
+    pattern: /admin/
+    defaults: { _controller: FdrAdminBundle:Default:index,name:admin }
+    
+home_user:
+    pattern: /
+    defaults: {_controller: FdrAdminBundle:Home:index}

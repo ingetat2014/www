@@ -1,0 +1,277 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Feuille d'Affretement|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+
+<div  class="page-header">   
+    <h1>Liste des Feuilles D'Affretement</h1>
+</div>
+{%if role.rechercherFDR %}
+     {{ form_start(search_form) }}  
+<div class="row-fluid">
+    <div class="span7 offset5">
+{{ form_label(search_form.etatfdl," ") }}{{ form_widget(search_form.etatfdl) }}<span class="alert-danger ">{{ form_errors(search_form.etatfdl) }}</span>
+{{ form_label(search_form.par," ") }}{{ form_widget(search_form.par) }}<span class="alert-danger ">{{ form_errors(search_form.par) }}</span>
+{{ form_label(search_form.libelle," ") }}{{ form_widget(search_form.libelle) }} <span class="alert-danger ">{{ form_errors(search_form.libelle) }}</span>
+{{ form_label(search_form.submit," ") }}{{ form_widget(search_form.submit) }}
+    </div>
+</div>
+    {{ form_end(search_form) }} 
+  {%endif%}
+{%if role.crClientCompeFDL or role.crClientNnCompeFDL%}
+
+<div class="row-fluid">
+    <a target="_blank"  href="{{ path('missionaffretement_new') }}" class="pull-left">
+        <button class="btn btn-default"> Ajouter une nouvelle entité</button>
+    </a>
+</div>
+{%endif%}
+<br/>
+<div class="row-fluid">
+   <table class="table-responsive table-bordered">
+       <thead class="">
+           <tr>               
+                <th rowspan="2" class="sorted">
+                 {{ knp_pagination_sortable(pagination, 'Code', 'id') }}
+                </th>
+                <th  colspan="2">Clients</th>
+                <th  colspan="2">Info. Responsable</th>
+                <th  colspan="2">Ramassage</th>
+                <th  colspan="2">Livraison</th>
+                <th rowspan="2" >
+                    Montant réglé
+                </th>
+                <th rowspan="2" >
+                    Etat
+                </th>
+                <th rowspan="2">FDR Associée</th>
+                <th rowspan="2">
+                Date d'ouverture
+                </th>
+                <th rowspan="2">Propriétaire</th>
+                <th rowspan="2">
+                    {%if role.ttEtatAfficherParFdl %}
+                    {{ form_start(filtre_form) }}  
+        <div class="row-fluid">
+             {{ form_label(filtre_form.affichertous," ") }}
+             {{ form_widget(filtre_form.affichertous) }}
+            <span class="alert-danger ">{{ form_errors(filtre_form.affichertous) }}</span>
+        </div>
+    {{ form_end(filtre_form) }}  
+        {%else%}
+        <h1 style="color: transparent;width: 110px"></h1>
+        {%endif%}
+        </th>
+        </tr>
+        <tr>
+            <th rowspan="2">
+                Exp.
+            </th>
+            <th rowspan="2" >
+                Dest.
+            </th>
+
+            <th rowspan="2" >
+                Nom
+            </th>
+            <th rowspan="2">
+                Tél.
+            </th>
+            <th>
+                Date__RAM.
+            </th>
+            <th >
+                Lieu
+            </th>
+            <th >
+                Date__LIVR.
+            </th>
+            <th>
+                Lieu
+            </th>
+            
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+                {% if entity.client.encompte %}
+            <tr class="clientcompte" style="background-color:#FFF4F4;font-style: italic" title="Affrêtement pour un client En Compte">
+                {%else %}
+            <tr>
+                {%endif %}                   
+                <td>{{ entity.id}}</td>
+                <td>{{entity.client|default('------')|trim('*/')}}</td> 
+                <td>{{entity.clientDestinataire|default('------')}}</td> 
+                <td>{{ entity.nomresponsable|default('-----') }}</td>
+                <td>{{ entity.telresponsable|default('-----') }}</td>
+
+                <td>{% if entity.dateramassage %}{{ entity.dateramassage|date('d-m-Y H:i') }}{% endif %}</td>
+                <td>{{ entity.lieuramassage }}</td>
+                <td>{% if entity.datelivraison %}{{ entity.datelivraison|date('d-m-Y H:i') }}{% endif %}</td>
+                <td>{{ entity.lieulivraison|default('-----') }}</td>  
+                <td>
+                {% if entity.montantregle or entity.client.encompte %}
+                    <input type="checkbox" disabled readonly checked />
+                {%else %}
+                    <input type="checkbox" disabled readonly />
+                {%endif %}
+                </td>
+                <td>{{ entity.etat|default('Aucun etat')  }}</td>
+                <td>
+                {% if entity.feuilleDeRoute %}
+                    {%if role.affFDR or role.imprimerFDR%}
+                <a target="_blank" href="{{ path('feuillederoute_show', { 'id': entity.feuilleDeRoute.id }) }}">
+                    <strong title="Feuille de route : {{ entity.feuilleDeRoute.etat }} , Cliquer pour plus">({{entity.feuilleDeRoute}})</strong>
+                </a>
+                     {%else %}
+                     <strong title="Feuille de route : {{ entity.feuilleDeRoute.etat }}">({{entity.feuilleDeRoute}})</strong>
+                {% endif %}
+                    {%else %}----------
+                {% endif %}
+                </td>
+                <td>{% if entity.dateGeneree %}{{ entity.dateGeneree|date('d-m-Y H:i') }}{% endif %}</td>
+                <td title="{{entity.user.email|default("-----") }}">{{entity.user|default("-----") }}</td>
+                <td class="col-md-12">
+                    {%if role is defined and role is not null%}
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            {%if role.affectationVehicule or role.editCompteur%}
+                            {% if entity.etat is not sameas('annuler') and entity.etat is not sameas('orpheline')%}
+                            <div class="col-md-2">
+
+                                <a target="_blank" href="{{ path('feuillederoute_new_fdl', { 'id': entity.id }) }}">
+                                    <button class="btn-default"  type="submit"> <img id="inputButtonAfficher" title="Affecter/Afficher/Modifier à la feuille de route" src="{{ asset('bundles/fdradmin/images/fdr.png') }}" />
+                                    </button>   </a> 
+
+                            </div>
+                            {%endif%}
+                            {%endif%}
+                            {%if role.affClientCompeFDL or role.affClientNnCompeFDL or role.imprimerFDL%}
+                            <div class="col-md-2">
+
+                                <a target="_blank" href="{{ path('missionaffretement_show', { 'id': entity.id }) }}">
+                                    <button class="btn-default" title="Afficher" type="submit"> <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                                    </button>  </a> 
+
+                            </div>
+                            {%endif%}
+                            {%if role.upClientCompeFDL or role.upClientNnCompeFDL%}
+                            {% if entity.etat is not sameas('annuler') and entity.etat is not sameas('orpheline')%}
+                            <div class="col-md-2">
+                             {% if entity.etat is sameas('fdr-cloturer')%}
+                                 {%set etat = "Cliquer pour cloturer l'affretement"%}
+                                {%else%}
+                                 {%set etat = "Cliquer pour modifier l'affretement"%}
+                                {%endif%}
+                                <a target="_blank" href="{{ path('missionaffretement_edit', { 'id': entity.id }) }}">
+                                    <button class="btn-default" title="{{etat}}" type="submit">  <img id="inputButtonModifier"  src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                                    </button>   
+                                </a> 
+
+                            </div>
+                            {%endif%}
+                            {%endif%}
+                        </div>
+                        <div class="row-fluid">
+                            {%if role.delClientCompeFDL or role.delClientNnCompeFDL%}
+                            <div class="col-md-2">
+                                          {{ form(delete_form[entity.id]) }}
+                            </div>
+                            {%endif%}
+                            {%if role.cloturerFDRAffr or role.cancelClientCompeFDL or role.cancelClientNnCompeFDL%}
+                            {% if entity.etat is sameas('ouverte')%}
+                            {%if role.cancelClientCompeFDL or role.cancelClientNnCompeFDL%}
+                            <div class="col-md-2">
+                                          {{ form(cancel_form[entity.id]) }}
+                            </div>
+                            {%endif%}
+                            {%if role.cloturerFDRAffr%}
+                            <div class="col-md-2">
+                                          {{ form(cloture_form[entity.id]) }}
+                            </div>
+                            {%endif%}
+                            {%endif%}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}<tr><td colspan="16"><em>Aucune mission affrêtement n'existe pour le moment</em></td></tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+
+
+<script>
+    $('* [id*="form_supprimerFdl_"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de suppression : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus recupérée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment supprimer cette feuille ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non, Merci",
+            confirmButtonClass: "btn-danger"
+        });
+    }
+    );
+
+    $('* [id*="form_annulerFdl_"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation d'Annulation : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus restaurée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment Annuler cette feuille ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non,Merci",
+            confirmButtonClass: "btn-warning"
+        });
+    }
+    );
+
+    $('* [id*="form_cloturerFdl_"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de clôture : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus ouverte'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-success'>Voulez-vous vraiment clôturer cette feuille ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non,Merci",
+            confirmButtonClass: "btn btn-success"
+        });
+    }
+    );
+</script>
+    {% endblock %}
+{% endblock fos_user_content %}

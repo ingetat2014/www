@@ -1,0 +1,67 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Depot|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Affichage d'un Depot</h1></div>
+
+
+
+{{ form_start(form) }}
+<div class="desactiver-champs">
+    <div class="row">
+        <span class="alert-danger ">{{ form_errors(form) }}</span>
+    </div>
+
+    <div class="row">
+
+        <div class="span6 offset3">
+
+            <fieldset>
+                <legend></legend>
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.id," Code ") }}</div>
+{{ form_widget(form.id) }}<span class="alert-danger ">{{ form_errors(form.id) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.libelle," Libelle ") }}</div>
+{{ form_widget(form.libelle) }}<span class="alert-danger ">{{ form_errors(form.libelle) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.ville," Ville ") }}</div>
+{{ form_widget(form.ville) }}<span class="alert-danger ">{{ form_errors(form.ville) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.filiale," Filiale ") }}</div>
+{{ form_widget(form.filiale) }}<span class="alert-danger ">{{ form_errors(form.filiale) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.adresse," Adresse ") }}</div>
+{{ form_widget(form.adresse) }}<span class="alert-danger ">{{ form_errors(form.adresse) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.station," Ayant station ") }}</div>
+{{ form_widget(form.station) }}<span class="alert-danger ">{{ form_errors(form.station) }}</span>
+                </div>
+
+            </fieldset>
+
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+<br/>
+{% if role.affDepot%}
+<div class="row-fluid">
+    <a  href="{{ path('depot') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% endblock fos_user_content %}

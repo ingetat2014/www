@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %} Hello World{% endblock %}
+{% block body %}
+   {% for key,value in data %}
+{{key}}|{{ value }}
+{% endfor %}
+
+{# data.email #}
+    {{form(form)}}
+{% endblock %}

@@ -1,0 +1,410 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!--link type="text/css" rel="stylesheet" href="./imprime.css" /-->
+        <style type="text/css">
+            table fieldset table tr td,table fieldset table tr th{
+                padding-bottom: 1px;
+                width: 280px;
+                background-color: transparent;
+                max-width: 280px;
+                margin-left: 10px;
+                margin-right: 10px;
+                vertical-align: top;
+            }
+            tr,table tr td table tr th{
+                padding: 3px;
+            }
+            legend{
+                color: blue;
+                background-color: white;
+                border:1px outset #FBE1E1;
+                padding: 8px;
+                alignment-adjust: central;
+                text-align: center;
+                float: right;
+            }
+            span.nb{
+                font-size: xx-small;
+                color: #0000A8;
+            }
+            h2{
+                position: absolute;
+                text-align: center;
+                float: inside;
+                color:#699FCD;
+                font-style:italic;
+            }
+            fieldset{
+                border:1px outset #FBE1E1;
+                padding: 2px;
+                margin: 2px;
+                width: 300px;
+            }
+           hr {width: 100%; border: none; background-color: #DDDDFF; border-top: solid 1mm #F00; padding: 2mm}
+        </style>
+    </head>
+    <body>
+        <img src="./bundles/fdradmin/images/ctm.png" alt="CTM" title="CTM ME" />
+       <h2>Imprimé de Feuille de route ({{entity}})</h2><hr/>
+        
+        <table>
+            <tr>
+                <td>
+                    <fieldset>
+                        <legend >Information sur impression : <span class="nb">[[page_nb]] page(s)</span></legend>
+                        <table>
+                            <tr><th>Code de la feuille  </th><td> {{entity.id}}</td></tr>
+                            <tr><th>Etat de la feuille  </th><td>{{entity.etat|capitalize}}</td> </tr>
+                            <tr>
+                                <th>Date/Heure d'impression  </th>
+                                <td>{{"now"|date('d-m-Y H:i')}}</td> </tr>
+                            <tr>
+                                <th>Utilisateur </th>
+                                <td>{{user.nom ~' '~user.prenom~" ("~user.matricule~")"}}</td></tr>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <fieldset>
+                        <legend >Déroulement de mission</legend>
+                        <table>
+
+                            <tr>
+                                <th>Date début de mission </th>
+                                <td>{% if entity.dateDebutMission %}{{ entity.dateDebutMission|date('d-m-Y H:i') }}{% endif %}</td>
+                            </tr>
+                            {% if entity.etat is sameas('cloturer') %}
+                            <tr>
+                                <th>Date Fin de mission </th>
+                                <td>{% if entity.dateFinMission %}{{ entity.dateFinMission|date('d-m-Y H:i') }}{% endif %}</td>
+                            </tr>
+                            {%endif%}
+                            <tr>
+                                <th>Dépôt-Filiale </th>
+                                <td>{{entity.depot|default('------')}}</td>
+                            </tr>
+                            {% if entity.missionAffretement %}
+                            <tr>
+                                <th>Date/Lieu de Ramassage </th>
+                                <td>{{entity.missionAffretement.dateramassage|date('d-m-Y H:i') ~" / "~entity.missionAffretement.lieuramassage|default('------')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date/Lieu de Livraison </th>
+                                <td>{{entity.missionAffretement.datelivraison|date('d-m-Y H:i') ~" / "~entity.missionAffretement.lieulivraison|default('------')}}</td>
+                            </tr>
+                            {% endif%}
+                            <tr>
+                                <th>Vehicule  </th>
+                                <td>{{entity.vehicule|default('------')}}{% if entity.missionAffretement %} ({{entity.missionAffretement.typeVehicule}}){% endif%}</td>
+                            </tr>
+                            <tr>
+                                <th>Compteur réel </th>
+                                <td>{{entity.compteurReel|default('------')}}</td>
+                            </tr>
+                            {% if entity.etat is sameas('cloturer') %}
+                            <tr>
+                                <th>Compteur final </th>
+                                <td>{{entity.compteurFinal|default('------')}}</td>
+                            </tr>
+                            {%endif%}
+                            <tr>
+                                <th>Prestation </th>
+                                <td>
+                                  {{entity.typePrestation}}{% if entity.missionAffretement %} ({{entity.missionAffretement}}) {% endif %}
+                                </td>
+                            </tr>
+                            {% if not entity.missionAffretement %}
+                            <tr>
+                                <th>Secteur(s) </th>
+                                <td>
+                {% for secteur in entity.secteurs %}
+                                        - {{ secteur.libelle }} {%if not loop.last%} <br/>{%endif%}
+                {% else %}
+                                       
+                {% endfor %}
+                                    </td>
+                            </tr>                                                     
+                            {%else%}
+                            <tr>
+                                <th>Client Expéditeur  </th>
+                                <td>
+                                    <strong><font style="color: {%if entity.missionAffretement.client.encompte %}blue {%else%}black {%endif%}" >{{entity.missionAffretement.client|trim('*/')}}</font></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Client Destinataire  </th>
+                                <td>
+                                    <strong><font style="color:black">{{entity.missionAffretement.clientDestinataire}}</font></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Bon de livraison / Numéro d'expédition </th>
+                                <td>{{entity.missionAffretement.bonlivraison|default('------')}}/{{entity.missionAffretement.numexpedition|default('------')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Nature de colis/Qte </th>
+                                <td>{{entity.missionAffretement.naturemarchandise|default('--')~" / "~entity.missionAffretement.nbrecolis|default('--')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom/Tel du responsable </th>
+                                <td>{{entity.missionAffretement.nomresponsable|default('--')~" / "~entity.missionAffretement.telresponsable|default('--')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Etat de Montant</th>
+                                <td>
+ {% if entity.missionAffretement.montantregle or entity.missionAffretement.client.encompte %}
+                                    Réglé
+ {%else %}
+                                    Non réglé
+{%endif %}
+
+                                </td>
+                            </tr>
+                            
+                           {%endif%}
+                        </table>
+                    </fieldset>
+                </td></tr>
+            <tr><td>
+        {% if not entity.missionAffretement %}
+
+                    <fieldset style="width: auto;max-width: 190px;"><legend>Clients</legend>
+                        <table>
+                            <tr><th style="color: #0000A8">Participants : </th> <th style="color: #EC0000">Non Concernés : </th></tr>
+                            <tr>
+                                <td>
+                                   
+                {% for cl in entity.clientFdrVs %}
+                 <font style="color: {%if cl.client.encompte %}blue {%else%}black {%endif%}" >- {{ cl.client|trim('*/') }} ({{ cl.secteur }})</font>
+                 {%if not loop.last%} <br/>{%endif%}
+                {% else %}
+                Aucun client n'a été spécifié
+                {% endfor %}
+                                    
+                                </td>
+                                <td>
+                {% for cl in entity.clientFdrFs %}
+                <font style="color: {%if cl.client.encompte %}blue {%else%}black {%endif%}" >- {{ cl.client|trim('*/') }} ({{ cl.secteur }})</font>
+                {%if not loop.last%} <br/>{%endif%}
+                {% else %}
+                Aucun client n'a été spécifié
+                {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+
+       {%endif%}
+                </td> </tr>
+            <tr> <td>
+
+                    <fieldset><legend>Chauffeur(s)/Manutentionnaire(s) </legend>
+                        <table>
+                            <tr>
+                                <td>Nombre de manutentions : {{entity.nombreManutention}} </td>
+                                <td>
+                                   
+                {% for man in entity.manutentions %}
+                                       - {{man}} {%if not loop.last%} <br/>{%endif%}
+                {% else %}
+                                        Aucun
+                {% endfor %}
+                                </td>
+                            </tr>
+
+   {% if entity.nomManExterne1 %}
+                            <tr>
+                                <th>Manutentionnaire externe </th>
+                                <td>
+
+                {{ entity.nomManExterne1}} CIN: {{ entity.cinManExterne1}}
+                                </td>
+                            </tr>
+    {% endif %}
+    {% if entity.nomManExterne2 %}
+                            <tr>
+                                <th>Manutentionnaire externe </th>
+                                <td>
+
+                {{ entity.nomManExterne2}} CIN: {{ entity.cinManExterne2}}
+                                </td>
+                            </tr>
+    {% endif %}
+                        </table>
+                    </fieldset>
+                </td></tr>
+            <tr><td>
+        {%if entity.etat is sameas("cloturer")%}
+                    {%if entity.peages|length>0%}
+                        <table border="1px" bordercolor="#FBE1E1" style="padding: 2px;">
+                            <tr border="0px" ><td style="background-color: #FFECEC" rowspan="{{ entity.peages|length+1}}">Bons Peage</td>
+                            <th style="background-color: #EAEAFF">Numéro</th>
+                            <th style="background-color: #EAEAFF">Date passage</th>
+                            <th style="background-color: #EAEAFF;width: 30px;">Lieu passage</th>
+                            <th style="background-color: #EAEAFF">Montant </th>
+                            </tr>
+                            {% for bonPeage in entity.peages %}
+                            <tr>
+                                <td style="width: 100px;">{{ bonPeage.numCarte }}</td>
+                                <td style="width: 120px;">{% if bonPeage.datePassage %}{{ bonPeage.datePassage|date('d-m-Y H:i') }}{% endif %}</td>
+                                <td style="width: 140px;">{{ bonPeage.lieu }}</td>
+                                <td style="width: 100px;">{{ bonPeage.montant~" Dhs" }}</td>
+                            </tr>
+                              {%else%}
+                            <tr><td colspan="3">Aucun bon de péage n'a été enregistré.</td></tr>	
+                              {% endfor %}
+                        </table>
+                    {%endif%}
+                </td>
+            </tr>
+            <tr><td>
+                       {%if entity.bonCarburantHuiles|length>0%}
+                        <table border="1px" bordercolor="#FBE1E1" style="padding: 2px;">
+                            <tr><td style="background-color: #FFECEC" rowspan="{{ entity.bonCarburantHuiles|length+1}}">Bons de<br/> Carburants<br/> et Huiles</td>
+                            <th style="background-color: #EAEAFF">Numéro</th>
+                            <th style="background-color: #EAEAFF">Lieu prise</th>
+                            <th style="background-color: #EAEAFF">Ville prise</th>
+                            <th style="background-color: #EAEAFF;">Date prise</th>
+                            <th style="background-color: #EAEAFF">Qté(L)</th>
+                            <th style="background-color: #EAEAFF">P.U.</th>
+                            <th style="background-color: #EAEAFF">Montant</th>
+                            <th style="background-color: #EAEAFF">Compteur</th>
+                            </tr>
+                            {% for bon in entity.bonCarburantHuiles %}
+                            <tr>
+                                <td style="width: 40px;">{{ bon.numCarte|default('-----') }}</td>
+                                <td style="width: 80px;">{{ bon.lieu|default('-----') }}</td>
+                                <td style="width: 80px;">{{ bon.ville|default('-----') }}</td>
+                                <td style="width: 80px;">{% if bon.date %}{{ bon.date|date('Y/m/d H:i') }}{% endif %}</td>
+                                <td style="width: 30px;">{{ bon.quantite|default('-----') }}</td>
+                                <td style="width: 50px;">{{ bon.prixUnitaire~" Dhs"|default('-----') }}</td>
+                                <td style="width: 50px;">{{ bon.montant~" Dhs"|default('-----')  }}</td>               
+                                <td style="width: 40px;">{{ bon.compteur }}</td>
+                            </tr>
+                            {%else %}
+                            <tr><td colspan="8">Aucun bon de Carburant n'a été enregistré.</td></tr>
+                             {% endfor %}
+                        </table>
+                    {%endif%}
+                </td>
+            </tr>
+            <tr><td>
+
+
+                        <table border="1px" bordercolor="#FBE1E1" style="padding: 2px;">
+                             <tr>
+                             <th style="background-color: #F2F2FF;text-align: center;" colspan="11">Synthèse des calculs</th> 
+                             </tr>
+                            <tr>
+                             <th style="background-color: #EAEAFF" rowspan="2">Différence</th>                      
+                                <th style="background-color: #EAEAFF" rowspan="2">Distance</th>                              
+
+                                <th style="background-color: #EAEAFF" rowspan="2">Qté<br/>totale</th>                              
+
+                                <th style="background-color: #EAEAFF" rowspan="2">Nbre<br/>prises</th>                         
+
+                                <th style="background-color: #EAEAFF" rowspan="2">Nbre<br/>jours</th>                              
+
+                                                             
+
+                                <th style="background-color: #EAEAFF" colspan="4">Bénificier de :</th>
+
+                                <th style="background-color: #EAEAFF" colspan="2">Montant total </th>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #EAEAFF">Petit Déj.</td> 
+                                
+                                <td style="background-color: #EAEAFF">Repas</td>
+                                
+                                <td style="background-color: #EAEAFF">Découch.</td> 
+                                <td style="background-color: #EAEAFF">Prim. <br/>Remorq.</td> 
+                                
+                                
+                                <td style="background-color: #EAEAFF">Carburant</td> 
+                               
+                                <td style="background-color: #EAEAFF">Péage</td> 
+                               
+                            </tr>
+                            <tr>
+                                <td style="background-color:{%if entity.calcDiffKm>10%}red{%else%}transparent{%endif%}">{{entity.calcDiffKm~" Km"|default("------")}}</td>
+                                <td style="width: 50px;">{{entity.calcKmParcourus~" Km"|default("------")}}</td>
+                                <td style="width: 40px;">{{entity.calcQuantite~" L"|default("------")}}</td>
+                                <td style="width: 40px;">{{entity.calcPrise|default("------")}}</td>
+                                <td style="width: 30px;">{{entity.calcNbJours|default("------")}}</td> 
+                                
+                                <td style="width: 40px;">{{entity.calcNbPetitDej|default("------")}}</td>
+                                <td style="width: 40px;">{{entity.calcNbRepas|default("------")}}</td>
+                                <td style="width: 40px;">{{entity.calcNbDecoucher|default("------")}}</td>
+                                <td style="width: 40px;">{%if entity.primeRemorque%}Oui{%else%}Non{%endif%}</td>
+                                <td style="width: 70px;">{{entity.calcMontantCarburant~" Dhs"|default("------")}}</td>
+                                <td style="width: 60px;">{{entity.calcMontantPeage~" Dhs"|default("------")}}</td>
+                            </tr>
+                            
+                            
+                                
+                            
+                        </table>
+                </td></tr>
+        </table>
+        {%else%} 
+
+        <table><tr><th>Compteur final : &nbsp;.............</th></tr>
+            <tr><td border="0px">
+                    <table border="1px" bordercolor="#FBE1E1" style="padding: 2px;">
+                        <tr border="0px" ><td style="background-color: #FFECEC" rowspan="5">Bons De Peage</td>
+                            <th style="background-color: #EAEAFF">Numéro</th>
+                            <th style="background-color: #EAEAFF">Date de passage</th>
+                            <th style="background-color: #EAEAFF">Lieu de passage</th>
+                            <th style="background-color: #EAEAFF">Montant </th>
+                            <th rowspan="5" border="0px">Remarques &agrave; ajouter :<br/>
+                                <textarea class="desactiver-champs" cols="18" rows="5" placeholder="" ></textarea></th>
+                        </tr>    
+            {% for i in range(0, 3) %}
+                        <tr>
+                {% for j in range(0, 3) %}<td>&nbsp;</td>{% endfor %}
+                        </tr>
+            {% endfor %}
+                    </table>
+                </td> 
+            </tr>
+            <tr>
+                <td>
+
+                    <table border="1px" bordercolor="#FBE1E1" style="padding: 2px;">
+                        <tr><td rowspan="5" style="background-color: #FFECEC">Bons de<br/> Carburants<br/> et Huiles</td>
+                            <th style="background-color: #EAEAFF">Numéro</th>
+                            <th style="background-color: #EAEAFF">Lieu de prise</th>
+                            <th style="background-color: #EAEAFF">Ville de prise</th>
+                            <th style="background-color: #EAEAFF">Date de prise</th>
+                            <th style="background-color: #EAEAFF">Qté(L)</th>
+                            <th style="background-color: #EAEAFF">P.U.</th>
+                            <th style="background-color: #EAEAFF">Montant</th>
+                            <th style="background-color: #EAEAFF">Compteur</th>
+                        </tr> 
+            {% for i in range(0, 3) %}
+                        <tr>
+                {% for j in range(0, 7) %}<td>&nbsp;</td>{% endfor %}
+                        </tr>
+            {% endfor %}
+                    </table>
+                </td></tr>
+            
+        </table>
+    </td></tr>
+</table>
+          {%endif%}
+
+<page_footer>
+    <hr/> &copy; Copyright &copy;  {{"now"|date('Y')}} / <a href="http://www.ctm-messagerie.ma/" title="ctmMess">CTM Messagerie</a>
+    </page_footer>
+</body>
+</html>

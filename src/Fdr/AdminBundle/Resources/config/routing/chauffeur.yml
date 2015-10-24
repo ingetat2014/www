@@ -1,0 +1,35 @@
+chauffeur:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:index" }
+
+chauffeur_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:show" }
+
+chauffeur_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:new" }
+
+chauffeur_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:create" }
+    methods:  POST
+
+chauffeur_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:edit" }
+
+chauffeur_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:update" }
+    methods:  [POST, PUT]
+
+chauffeur_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:delete" }
+    methods:  [POST, DELETE]
+
+chauffeur_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:Chauffeur:recherche" }
+    methods:  GET

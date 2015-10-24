@@ -1,0 +1,74 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Peage|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header"> <h1>Liste des Peages</h1></div>
+<div class="row-fluid">
+<table class="table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Numcarte</th>
+            <th>Datepassage</th>
+            <th>Lieu</th>
+            <th>Montant(Dhs)</th>
+            <th>Feuille de route associée</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.numCarte|default("-----") }}</td>
+            <td>{% if entity.datePassage %}{{ entity.datePassage|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{entity.lieu|default("-----")}}</td>
+            <td>{{ entity.montant|default("-----") }}</td>
+            <td>{{ entity.feuillederoute|default("-----") }}</td>
+            <td>
+                    {% if role.affPeage%}
+                <div class="col-md-2">
+                    <a target="_blank" href="{{ path('peage_show', { 'id': entity.id }) }}">
+                        <button title="Afficher" type="submit">
+                            <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                        </button>
+                    </a> 
+                </div>
+                    {% endif %}
+
+            </td>
+        </tr>
+            {% else %}<tr><td colspan="7"><em>Aucun bon peage n'existe pour le moment</em></td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+
+<script>
+    $('* [id="form_supprimer"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de suppression : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus recupérée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment supprimer  ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non, Merci",
+            confirmButtonClass: "btn-danger"
+        });
+    }
+    );
+</script>
+ {% endblock %}{% endblock fos_user_content %}

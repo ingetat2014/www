@@ -1,0 +1,35 @@
+client:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Client:index" }
+
+client_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Client:show" }
+
+client_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Client:new" }
+
+client_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Client:create" }
+    methods:  POST
+
+client_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Client:edit" }
+
+client_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Client:update" }
+    methods:  [POST, PUT]
+
+client_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Client:delete" }
+    methods:  [POST, DELETE]
+
+client_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:Client:recherche" }
+    methods:  GET

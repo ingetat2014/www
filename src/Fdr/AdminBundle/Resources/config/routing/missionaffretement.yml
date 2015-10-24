@@ -1,0 +1,55 @@
+missionaffretement:
+    path: /
+    defaults: { _controller: FdrAdminBundle:MissionAffretement:index, etat:ouverte}
+    requirements:
+      etat: ouverte|cloturer|annuler|valider
+missionaffretement_etat:
+    path: /{etat}
+    defaults: { _controller: FdrAdminBundle:MissionAffretement:index, etat:ouverte}
+    methods:  POST
+    requirements:
+      etat: ouverte|cloturer|annuler|valider
+missionaffretement_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:show" }
+
+missionaffretement_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:new" }
+
+missionaffretement_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:create" }
+    methods:  POST
+
+missionaffretement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:edit" }
+
+missionaffretement_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:update" }
+    methods:  [POST, PUT]
+
+missionaffretement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:delete" }
+    methods:  [POST, DELETE]
+    
+missionaffretement_chngeetat:
+    path:     /{id}/etat/{chngeetat}
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:chngeetat" }
+    methods:  POST
+    requirements:
+      chngeetat: cloturer|annuler|ouverte
+
+missionaffretement_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:MissionAffretement:recherche" }
+    methods:  GET
+missionaffretement_apercu:
+    path:     /{id}/apercu/{quoi}
+    defaults: { _controller: FdrAdminBundle:MissionAffretement:apercu,quoi:view }
+    methods:  POST
+    requirements:
+      quoi: view|save

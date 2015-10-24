@@ -1,0 +1,91 @@
+feuillederoute:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:index" }
+
+feuillederoute_all:
+    path:     /all
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:all" }
+feuillederoute_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:show" }
+
+feuillederoute_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:new" }
+
+feuillederoute_create:
+    path:     /create/
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:create,idfdl:null}
+    methods:  POST
+
+feuillederoute_create_idfdl:
+    path:     /create/{idfdl}
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:create}
+    methods:  POST
+feuillederoute_editdebut:
+    path:     /{id}/editdebut
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:editdebut" }
+feuillederoute_updatedebut:
+    path:     /{id}/updatedebut
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:updatedebut" }
+    methods:  [POST, PUT]
+feuillederoute_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:delete" }
+    methods:  [POST, DELETE]
+
+feuillederoute_updatecloture:
+    path:     /{id}/cloture
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:updatecloture }
+    
+feuillederoute_new_fdl:
+    path:     /{id}/new_fdl
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:newfdl" }
+    requirements:
+      id: \d+
+ 
+feuillederoute_apercu:
+    path:     /{id}/apercu/{quoi}
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:apercu,quoi:view }
+    methods:  POST
+    requirements:
+      quoi: view|save
+
+feuillederoute_apercu_cloture:
+    path:     /{id}/apercucloture/{quoi}
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:apercuCloture,quoi:view }
+    methods:  POST
+    requirements:
+      quoi: view|save
+
+feuillederoute_show_cloture:
+    path:     /{id}/showcloture
+    defaults: { _controller: FdrAdminBundle:FeuilleDeRoute:showCloture }
+    
+feuillederoute_chngeetat:
+    path:     /{id}/etat/{chngeetat}
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:chngeetat" }
+    methods:  POST
+    requirements:
+      chngeetat: cloturer|annuler|ouverte
+
+feuillederoute_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:recherche" }
+    methods:  GET
+    
+groupeMateriel:
+    path:     /groupes/{dateDebut}/{dateFin}/{type}
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:groupeMateriel" }
+
+etatExcel:
+    path:     /excel/{dateDebut}/{dateFin}/{type}/{id}
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:phpToExcel" }
+    
+reporting:
+    path:     /reporting
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:reporting" }
+groupeVehicule:
+    path:     /reporting/{type}/{dateDebut}/{dateFin}
+    defaults: { _controller: "FdrAdminBundle:FeuilleDeRoute:groupeVehicule" }
+    methods:  POST

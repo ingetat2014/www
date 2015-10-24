@@ -1,0 +1,25 @@
+modification:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Modification:index" }
+
+modification_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Modification:show" }
+
+modification_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Modification:delete" }
+    methods:  [POST, DELETE]
+
+modification_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:Modification:recherche" }
+    methods:  GET
+modification_vider:
+    path:     /vider
+    defaults: { _controller: "FdrAdminBundle:Modification:vider" }
+    methods:  [POST, DELETE]
+modification_vider_recherche:
+    path:     /{ids}/vider_recherche
+    defaults: { _controller: FdrAdminBundle:Modification:deleteRecherche,ids:-1 }
+    methods:  GET

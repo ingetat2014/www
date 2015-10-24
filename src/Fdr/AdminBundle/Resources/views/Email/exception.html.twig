@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="ismailkomay"/>
+        <meta name="author" content="ismailkomay"/>
+        <title>{% block title %}Exception{% endblock %}</title>
+        <style>
+            tr th{
+                background-color: lightblue;
+                padding: 10px;
+            }
+            tr td{
+                background-color: #EBEBEB;
+                padding: 5px;
+            }
+            table{
+                border: 2px solid lightcoral; 
+                width: 100%;
+            }
+        </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="row-fluid text-primary">
+            Bonjour WebMaster
+        </div>
+        <br/>
+<div  class="page-header"> <span class="error">Exception a été survenue lors de l'exécution de l'application : </span></div>
+<br/>
+<div class="row-fluid">
+<table class="">
+    <thead>
+        <tr><th colspan="2"><img id="inputButtonAfficher" ALT="CTM MESSAGERIE" title="CTM MESSAGERIE" src="{{ asset('bundles/fdradmin/images/ctm.png') }}" /></th></tr>
+        <tr><th>Utilisateur</th><td>{{utilisateur}}</td></tr>
+        <tr><th>Date</th><td>{{date}}</td></tr>
+        <tr><th>Message</th><td>{{message}}</td></tr>
+        <tr><th>URL</th><td>{{url}}</td></tr>
+        <tr><th>Nom de la Route</th><td>{{route_name}}</td></tr>
+        <tr><th>Environnement</th><td>{{env}}</td></tr>
+        <tr><th>Fichier</th><td>{{fichier}}</td></tr>
+        <tr><th>Ligne</th><td>{{ligne}}</td></tr>       
+    </thead>
+</table>
+</div>
+    </body>
+</html>

@@ -1,0 +1,113 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Modication|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Affichage de Modification de {{entity.classe}}({{entity.codeFeuille}})</h1></div>
+
+<div class="row">
+    <span class="alert-danger ">{{ form_errors(form) }}</span>
+</div>
+
+<div class="row-fluid">
+    <div class="span6 offset1">
+        <div class="row-fluid">
+            <table class="table-responsive records_list table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Type de Colonne</th>
+                        <th rowspan="2">Nom de Colonne</th>
+                        <th colspan="2">Modification</th>
+                    </tr>
+                    <tr>
+                        <th>Valeur ancienne</th>
+                        <th>Nouvelle Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% set cnt=0%}
+                             {%for key,item in entity.motifs %}
+
+                    <tr style="{%if loop.index0+2==item|length%}border-bottom: 1px solid black{%endif%}"><td rowspan="{{item|length/2}}">{{key}}</td>
+                            {%for keyy,itemm in item %}
+                            {% set cnt = cnt+1 %}
+                        {%if loop.first%}
+
+                        <td><span class="text-primary">{{keyy|slice(0, keyy|length-4)}}</span></td>
+                        <td>{{itemm}}</td>
+                        {%elseif loop.last %}
+                        <td>{{itemm}}</td>
+                    </tr>
+                        {%elseif loop.index0 is divisibleby(2) %}                       
+                    </tr>
+                    <tr style="{%if loop.index0+2==item|length%}border-bottom: 1px solid black{%endif%}">
+
+                        <td> <span class="text-primary">{{keyy|slice(0, keyy|length-4)}}</span></td>
+                        <td>
+                                {{itemm}}
+                        </td>
+                        {%else%}
+                        <td>{{itemm}}</td>
+                        {%endif%}
+
+                            {%endfor%}
+
+                             {%endfor%}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">Nombre total des modifications </th>
+                        <td colspan="2"> {{cnt/2}}      </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+    <div class="span4">
+
+        <div class="row-fluid">
+             <table style="border-width: 0px" class="table-responsive records_list table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>Code de modification</th> <td>{{entity.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Type de Feuille</th><td>{{entity.classe}}</td>
+                    </tr>
+                    <tr>
+                        <th>Code de la feuille</th>
+                        <td>{{entity.codeFeuille}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Utilisateur</th><td>{{entity.user}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de modification</th><td> {% if entity.dateMaj %}{{ entity.dateMaj|date('d-m-Y H:i:s') }}{% endif %}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <br/>
+        <div class="row-fluid">
+            <label>Remarque</label>
+        </div>
+        <div class="row-fluid">
+            <textarea style="text-align: left" cols="40" rows="10" readonly="readonly">
+                    {{entity.remarque|default('Pas de remarque')}}
+            </textarea>
+        </div>
+    </div>
+</div>
+<br/>
+{% if role.affModification%}
+<div class="row-fluid">
+    <a  href="{{ path('modification') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+
+{% endblock fos_user_content %}

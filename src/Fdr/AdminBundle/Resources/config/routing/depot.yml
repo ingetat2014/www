@@ -1,0 +1,35 @@
+depot:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Depot:index" }
+
+depot_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Depot:show" }
+
+depot_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Depot:new" }
+
+depot_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Depot:create" }
+    methods:  POST
+
+depot_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Depot:edit" }
+
+depot_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Depot:update" }
+    methods:  [POST, PUT]
+
+depot_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Depot:delete" }
+    methods:  [POST, DELETE]
+    
+depot_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:Depot:recherche" }
+    methods:  GET

@@ -1,0 +1,30 @@
+#indisponibilite:
+#    path:     /
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:index" }
+#
+#indisponibilite_show:
+#    path:     /{id}/show
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:show" }
+#
+#indisponibilite_new:
+#    path:     /new
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:new" }
+#
+#indisponibilite_create:
+#    path:     /create
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:create" }
+#    methods:  POST
+#
+#indisponibilite_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:edit" }
+#
+#indisponibilite_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:update" }
+#    methods:  [POST, PUT]
+#
+#indisponibilite_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "FdrAdminBundle:Indisponibilite:delete" }
+#    methods:  [POST, DELETE]

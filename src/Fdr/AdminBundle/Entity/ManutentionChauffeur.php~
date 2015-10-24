@@ -1,0 +1,47 @@
+<?php
+
+namespace Fdr\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+/**
+ * Depot
+ * @ORM\Entity(repositoryClass="Fdr\AdminBundle\Entity\DepotRepository")
+ */
+class ManutentionChauffeur
+{
+     
+    /**
+   * @ORM\ManyToOne(targetEntity="Fdr\AdminBundle\Entity\Filiale", cascade={"remove"},inversedBy="manutentionChauffeurs")
+   * @ORM\JoinColumn(nullable=false)
+   * @Assert\NotBlank()
+   */
+    private $chauffeur;
+   
+    /**
+     * @var integer
+     * @ORM\Column(name="nombreManutention", type="integer", nullable=true)
+     */
+    private $nombreMantions;
+
+    /**
+    * @ORM\OneToOne(targetEntity="FeuilleDeRoute",mappedBy="manutentionChauffeur")
+   * @ORM\JoinColumn(nullable=true)
+    */
+     private $feuilleDeRoute;
+     
+     public function __construct() {
+    }
+  
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+     private $id;
+
+}

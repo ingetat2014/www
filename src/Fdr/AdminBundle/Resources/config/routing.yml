@@ -1,0 +1,91 @@
+fdr_admin_parametrage:
+    resource: "@FdrAdminBundle/Resources/config/routing/parametrage.yml"
+    prefix:   /parametrage
+
+fdr_admin_feuillederoute:
+    resource: "@FdrAdminBundle/Resources/config/routing/feuillederoute.yml"
+    prefix:   /feuillederoute
+
+fdr_admin_manutention:
+    resource: "@FdrAdminBundle/Resources/config/routing/manutention.yml"
+    prefix:   /manutention
+
+fdr_admin_ville:
+    resource: "@FdrAdminBundle/Resources/config/routing/ville.yml"
+    prefix:   /ville
+
+fdr_admin_typeprestation:
+    resource: "@FdrAdminBundle/Resources/config/routing/typeprestation.yml"
+    prefix:   /typeprestation
+
+fdr_admin_secteur:
+    resource: "@FdrAdminBundle/Resources/config/routing/secteur.yml"
+    prefix:   /secteur
+
+fdr_admin_feuillederoute:
+    resource: "@FdrAdminBundle/Resources/config/routing/feuillederoute.yml"
+    prefix:   /feuillederoute
+
+fdr_admin_vehicule:
+    resource: "@FdrAdminBundle/Resources/config/routing/vehicule.yml"
+    prefix:   /vehicule
+
+fdr_admin_boncarburanthuile:
+    resource: "@FdrAdminBundle/Resources/config/routing/boncarburanthuile.yml"
+    prefix:   /boncarburanthuile
+
+fdr_admin_typeconsommation:
+    resource: "@FdrAdminBundle/Resources/config/routing/typeconsommation.yml"
+    prefix:   /typeconsommation
+
+fdr_admin_role:
+    resource: "@FdrAdminBundle/Resources/config/routing/role.yml"
+    prefix:   /role
+
+fdr_admin_peage:
+    resource: "@FdrAdminBundle/Resources/config/routing/peage.yml"
+    prefix:   /peage
+
+fdr_admin_modification:
+    resource: "@FdrAdminBundle/Resources/config/routing/modification.yml"
+    prefix:   /modification
+
+fdr_admin_missionaffretement:
+    resource: "@FdrAdminBundle/Resources/config/routing/missionaffretement.yml"
+    prefix:   /missionaffretement
+
+fdr_admin_manutentionnaire:
+    resource: "@FdrAdminBundle/Resources/config/routing/manutentionnaire.yml"
+    prefix:   /manutentionnaire
+
+fdr_admin_indisponibilite:
+    resource: "@FdrAdminBundle/Resources/config/routing/indisponibilite.yml"
+    prefix:   /indisponibilite
+
+fdr_admin_filiale:
+    resource: "@FdrAdminBundle/Resources/config/routing/filiale.yml"
+    prefix:   /filiale
+
+fdr_admin_feuillederoute:
+    resource: "@FdrAdminBundle/Resources/config/routing/feuillederoute.yml"
+    prefix:   /feuillederoute
+
+fdr_admin_depot:
+    resource: "@FdrAdminBundle/Resources/config/routing/depot.yml"
+    prefix:   /depot
+
+#fdr_admin_clientfdrv:
+#    resource: "@FdrAdminBundle/Resources/config/routing/clientfdrv.yml"
+#    prefix:   /clientfdrv
+#
+#fdr_admin_clientfdrf:
+#    resource: "@FdrAdminBundle/Resources/config/routing/clientfdrf.yml"
+#    prefix:   /clientfdrf
+
+fdr_admin_client:
+    resource: "@FdrAdminBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+
+fdr_admin_chauffeur:
+    resource: "@FdrAdminBundle/Resources/config/routing/chauffeur.yml"
+    prefix:   /chauffeur

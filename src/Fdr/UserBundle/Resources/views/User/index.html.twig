@@ -1,0 +1,103 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Utilisateur | Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header"> <h1>Liste des utilisateurs</h1></div>
+
+{% if  is_granted("ROLE_ADMIN") or role.crUtilisateur  %}
+<div class="row-fluid">
+  
+        <a href="{{ path('fos_user_registration_register') }}" target="_blank">  
+            <button class="btn btn-default">
+            Ajouter un utilisateur
+        </button>
+</a>
+    
+</div>
+<br/>
+{% endif %}
+
+  {{ form_start(search_form) }}  
+<div class="row-fluid">
+    <div class="span5 offset7">   
+
+{{ form_label(search_form.par," ") }}{{ form_widget(search_form.par) }}<span class="alert-danger ">{{ form_errors(search_form.par) }}</span>
+{{ form_label(search_form.libelle," ") }}{{ form_widget(search_form.libelle) }} <span class="alert-danger ">{{ form_errors(search_form.libelle) }}</span>
+
+{{ form_label(search_form.submit," ") }}{{ form_widget(search_form.submit) }}
+    </div>
+</div>
+    {{ form_end(search_form) }}
+
+<div class="row-fluid">
+<table class="table-responsive records_list table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Matricule</th>
+                <th>Role</th>
+                <th>Depot</th>
+                <th>Verrouillé</th>
+                <th>Expiré</th>
+                <th>Date d'expiration</th>            
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr class="{{app.user.username==entity?'monRole':''}}" title="{{app.user.username==entity?'Votre profil':''}}">
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.nom|default('-----') }}</td>
+                <td>{{ entity.prenom|default('-----') }}</td>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.matricule|default('-----') }}</td>
+                <td>{{ entity.roles[0]|default('-----') }}</td>
+                <td>{{ entity.depot|default('-----') }}</td>
+                <td>{% if entity.locked %}<span class="alert-danger">Oui</span> {%else%}Non{%endif%}</td>
+                <td>{% if entity.expired %}<span class="alert-danger">Oui</span> {%else%}Non{%endif%}</td>
+                <td>{% if entity.expiresAt %}{{ entity.expiresAt|date('Y-m-d H:i:s') }}{%else%}-----{% endif %}</td>
+                <td class="col-md-12">
+                    {% if role.affUtilisateur %}
+                    <div class="col-md-4">
+                        <a target="_blank"  href="{{ path('user_show', { 'id': entity.id }) }}">
+                            <button title="Afficher" type="submit">
+                                <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                            </button>
+                        </a> 
+                    </div>
+                    {% endif %}
+                    {% if role.upUtilisateur %}
+                     {% if app.user.username!=entity%}
+                    <div class="col-md-4">
+                        <a target="_blank" href="{{ path('user_edit', { 'id': entity.id }) }}">
+                            <button title="Modifier" type="submit">
+                                <img id="inputButtonModifier" title="Modifier" src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                            </button>
+                        </a> 
+                    </div>
+                     {% endif %}
+                    {% endif %}
+                     {% if role.delUtilisateur %}
+                    {% if app.user.username!=entity%}
+                    <div class="col-md-4">
+                        {{ form(delete_form[entity.id]) }}
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+    {% endblock %}
+{% endblock fos_user_content %}

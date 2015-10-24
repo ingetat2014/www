@@ -1,0 +1,35 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<br/>
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+   
+   
+    <div class="row-fluid">
+<div class="span4 btn-info text-center text-exception">
+    <strong>Le formulaire ci dessous vous permet de changer votre  nom d'utilisateur/Email :</strong>
+</div>
+    </div>
+    <br/>
+    {{form_start(form)}}
+    <div class="row-fluid">
+<div class="span2 text-left">{{ form_label(form.username," Nom d'utilisateur ") }}</div>
+{{ form_widget(form.username) }}<span class="alert-danger ">{{ form_errors(form.username) }}</span>
+    </div>
+    
+    <div class="row-fluid">
+<div class="span2 text-left">{{ form_label(form.email," Email ") }}</div>
+{{ form_widget(form.email) }}<span class="alert-danger ">{{ form_errors(form.email) }}</span>
+    </div>
+
+    <div class="row-fluid">
+<div class="span2 text-left">{{ form_label(form.current_password," Mot de passe actuel ") }}</div>
+{{ form_widget(form.current_password) }}<span class="alert-danger ">{{ form_errors(form.current_password) }}</span>
+    </div>
+    
+    
+    <div class="row-fluid">
+        <div class="span3 text-center">
+        <input type="submit" class="btn btn-default" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
+    </div>
+    {{form_end(form)}}
+</form>

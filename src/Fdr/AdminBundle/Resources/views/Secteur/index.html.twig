@@ -1,0 +1,103 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Secteur|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header"> <h1>Liste des Secteurs</h1></div>
+<div class="row-fluid">
+<table class="table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Libelle</th>
+            <th>Prestations concernées</th>
+            <th>Depart</th>
+            <th>Arrivee</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.libelle|default("-----") }}</td>
+            <td>
+                <ul>
+                    {% for item in entity.typePrestations %}
+                    <li> {{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ entity.depart|default("-----") }}</td>
+            <td>{{ entity.arrivee|default("-----") }}</td>
+            <td class="col-md-4">
+                        {% if role.affSecteur%}
+                <div class="col-md-2">
+                    <a target="_blank" href="{{ path('secteur_show', { 'id': entity.id }) }}">
+                        <button title="Afficher" type="submit">
+                            <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                        </button>
+                    </a> 
+                </div>
+                
+                         {%endif%}
+                        {% if role.upSecteur%}
+                <div class="col-md-2">
+                    <a target="_blank" href="{{ path('secteur_edit', { 'id': entity.id }) }}">
+                        <button title="Modifier" type="submit">
+                            <img id="inputButtonModifier" title="Modifier" src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                        </button>
+                    </a> 
+                </div>
+                
+                         {%endif%}
+                        {% if role.delSecteur%}
+                <div class="col-md-2">
+
+                         {{ form(form[entity.id]) }}
+                </div>
+                
+                         {%endif%}
+            </td>
+        </tr>
+            {% else %}<tr><td colspan="5"><em>Aucun secteur n'existe pour le moment</em></td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+<br/>
+{% if role.crSecteur%}
+<div class="row-fluid">
+    <a href="{{ path('secteur_new') }}" class="pull-right">
+        <button class="btn btn-default">Ajouter une nouvelle entité</button>
+    </a>
+</div>
+         {%endif%}
+
+<script>
+    $('* [id="form_supprimer"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de suppression : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus recupérée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment supprimer  ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non, Merci",
+            confirmButtonClass: "btn-danger"
+        });
+    }
+    );
+</script>
+{% endblock %}{% endblock fos_user_content %}

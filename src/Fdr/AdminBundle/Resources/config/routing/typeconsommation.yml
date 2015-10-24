@@ -1,0 +1,30 @@
+typeconsommation:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:index" }
+
+typeconsommation_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:show" }
+
+typeconsommation_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:new" }
+
+typeconsommation_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:create" }
+    methods:  POST
+
+typeconsommation_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:edit" }
+
+typeconsommation_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:update" }
+    methods:  [POST, PUT]
+
+typeconsommation_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:TypeConsommation:delete" }
+    methods:  [POST, DELETE]

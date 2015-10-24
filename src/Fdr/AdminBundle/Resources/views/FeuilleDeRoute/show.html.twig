@@ -1,0 +1,363 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Feuille de route|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header">  <h2> Affichage de la feuille de route {{entity}}</h2> </div>  
+<div class="row-fluid">
+    <div class="span12">
+        <div class="span4">
+        <div class="span3">{{ form_label(form.dateGeneree,"Date d'ouverture:") }}</div>
+            <div class="span9">{{ form_widget(form.dateGeneree) }}</div>
+        </div>
+        <div class="span3">
+        <div class="span6">{{ form_label(form.user,"Propriétaire:") }}</div>
+            <div class="span6">{{ form_widget(form.user) }}</div>
+        </div>
+        <div class="span5">
+    {%if role.imprimerFDR%}
+     {%if (not entity.fdrInstance or (entity.fdrInstance and entity.etat is sameas("cloturer"))) and (entity.etat is not sameas("annuler")) and (entity.etat is not sameas("orpheline"))%}
+    <div class="span3">
+{{ form_start(save_form, {'attr': {'id': 'save'}}) }}{{ form(save_form) }}{{ form_end(save_form) }}
+    </div>
+    <div class="span3" >
+{{ form_start(apercu_form, {'attr': {'target': '_blank'}}) }}{{ form(apercu_form) }}{{ form_end(apercu_form) }}
+    </div>
+            {%else%}<div class="span6" ></div>
+     {%endif%}
+    {%endif%}
+    {%if role.cloturerFDR or role.upCloturerFDR%}
+            {%if (entity.etat is sameas("cloturer")) or ( entity.etat is sameas("ouverte") and not entity.fdrInstance )%}
+    <div class="span3 offset1">
+        {%if entity.etat is not sameas("annuler")%}
+           {%if entity.etat is not sameas("cloturer") and role.cloturerFDR%}
+            {%set cloturer="Clôturer"%}
+            <a target="_blank"  href="{{ path('feuillederoute_updatecloture', { 'id': entity.id }) }}">
+                <button class="btn btn-default" title="{{cloturer}}" type="submit">
+                {{cloturer}}
+                </button>
+            </a> 
+            {%elseif entity.etat is sameas("cloturer") and role.upCloturerFDR %}
+            {%set cloturer="Modifier la clôture"%}           
+            <a target="_blank"  href="{{ path('feuillederoute_updatecloture', { 'id': entity.id }) }}">
+                <button class="btn btn-default" title="{{cloturer}}" type="submit">
+                {{cloturer}}
+                </button>
+            </a> 
+           {%endif%}
+        
+        {%endif%}
+    </div>
+            {%endif%}
+    {%endif%}
+        </div>
+</div>
+</div>
+<div class="desactiver-champs">
+{{ form_start(form) }}
+    <div class="span4">
+        <fieldset>
+            <legend>Déroulement de mission  </legend>
+            <div class="row-fluid">
+                <div class="span3"> <label for="etat">Etat</label></div>
+                <input type="text" value="{{entity.etat }}{{ entity.fdrInstance?" (en instance)":"" }}" size="25"/> 
+            </div>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.dateDebutMission," Date début de mission") }}</div>
+{{ form_widget(form.dateDebutMission) }}
+            </div>
+{% if entity.etat is sameas('cloturer') %}
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.dateFinMission," Date Fin de mission") }}</div>
+{{ form_widget(form.dateFinMission) }}
+            </div>
+{%endif%}
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.filiale,"Filiale ") }}</div>
+{{ form_widget(form.filiale) }}
+            </div>
+
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.depot," Dépôt") }}</div>
+{{ form_widget(form.depot) }}
+            </div>
+
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.vehicule,"Véhicule ") }}</div>
+                <span class="">{{ form_widget(form.vehicule) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.compteurReel,"Compteur réel ") }}</div>
+{{ form_widget(form.compteurReel) }}
+            </div>
+            {% if entity.etat is sameas('cloturer') %}
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.compteurFinal,"Compteur final ") }}</div>
+                {{ form_widget(form.compteurFinal) }}
+            </div>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.dateClotureMission,"Date de cloture ") }}</div>
+                {{ form_widget(form.dateClotureMission) }}
+            </div>
+            {%endif%}
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset> 
+            <legend>Prestation </legend>
+
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(form.typePrestation," Prestation") }}</div>
+{{ form_widget(form.typePrestation) }}
+                {% if entity.missionAffretement %}
+                <br/>
+                Code : {{entity.missionAffretement}}
+                {%if role.affClientCompeFDL or role.affClientNnCompeFDL or role.imprimerFDL%}
+                <a target="_blank" href="{{ path('missionaffretement_show', { 'id': entity.missionAffretement.id }) }}">
+                    <img src="{{ asset('bundles/fdradmin/images/apercu.png') }}" alt="Aperçu" title="Feuille affrêtement : {{ entity.missionaffretement.etat }},Nombre Manutentions:{{ entity.missionaffretement.nombreManutentionVoulu }}, Cliquer pour plus"/>
+                </a>
+                {% endif %}
+                {% endif %}
+            </div>
+
+            {% if not entity.missionAffretement %}
+            <div class="row-fluid">
+                <div class="span4">
+                    <label for="secteurs">Secteurs :</label>
+                </div>
+            </div>  
+            
+            <div class="row-fluid">
+                <div class="span8">
+       {% for secteur in entity.secteurs %}        
+                       -<input type="text" value="{{secteur.libelle}}" size="25"/> {%if not loop.last%} <br/>{%endif%}
+                {% else %}
+                       -<input type="text" value="Aucun" size="25"/>
+        {% endfor %}   
+                </div>  
+
+            </div>
+            {% endif %}
+            <div class="row-fluid">
+                <div class="span4">
+                    <label for="clients">Clients :</label>
+                </div>
+            </div>
+            <div class="row-fluid">
+                    {% if entity.missionAffretement %}
+                    - Client Exp. : <strong><font style="color: {%if entity.missionAffretement.client.encompte %}green {%else%}black {%endif%}" >{{entity.missionAffretement.client|trim('*/')}}</font></strong>
+                    <br/>
+                    - Client Dest. : <strong><font style="color:black">{{entity.missionAffretement.clientDestinataire}}</font></strong>
+                    {% else %}
+                 {% for cl in entity.clientFdrVs %}
+                    - <font style="color: {%if cl.client.encompte %}green {%else%}black {%endif%}" >{{ cl.client|trim('*/') }} ({{ cl.secteur }})</font>{%if not loop.last%} <br/>{%endif%} 
+                {% else %}
+                    -Aucun client n'a été spécifié
+                {% endfor %}
+                    {% endif %}
+            </div>  
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend> Chauffeurs/Manutentions </legend>
+
+            <div class="row-fluid">
+                <div class="span4">
+                    <label for="nombreManutention">Nombre De Manutentions </label>
+                </div>
+                <input id="nombreManutention" type="number" value="{{entity.nombreManutention|default(0)}}" size="3"/>
+            </div>
+
+            <div class="row-fluid">
+                <label for="manutentions">Chauffeur(s)/ Manutentionnaire(s): </label>
+            </div>
+
+            <div class="row-fluid" id="manutentions">
+                
+                {% for man in entity.manutentions %}
+                        -<input type="text" value="{{man}}" size="35" readonly/> {%if not loop.last%} <br/>{%endif%}    
+                        {% else %} - Aucune affectation ( Erreur inintentionnelle. )
+                {% endfor %}
+                   
+            </div>
+
+          {% if entity.nomManExterne1 is not null or entity.cinManExterne1 is not null%} 
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.nomManExterne1,"Manu. ext1") }}</div>
+                <div class="span8">{{ form_widget(form.nomManExterne1) }}</div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.cinManExterne1,"CIN ext1") }}</div>
+                <div class="span8">{{ form_widget(form.cinManExterne1) }}</div>
+            </div>
+             {%endif%}
+            {% if entity.nomManExterne2 is not null or entity.cinManExterne2 is not null%} 
+            <br/>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.nomManExterne2,"Manu. ext2") }}</div>
+                <div class="span8">{{ form_widget(form.nomManExterne2) }}</div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3">{{ form_label(form.cinManExterne2,"CIN ext2") }}</div>
+                <div class="span8">{{ form_widget(form.cinManExterne2) }}</div>
+            </div>
+             {%endif%}
+        </fieldset>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <fieldset> 
+                <legend>Les bons de péage </legend>
+
+                <div class="row-fluid">
+                    <table class="table-responsive records_list table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Numéro</th>
+                                <th>Datepassage</th>
+                                <th>Montant (Dhs)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        {% for bonPeage in entity.getPeages %}
+                            <tr>
+                                <td>{{ bonPeage.numCarte }}</td>
+                                <td>{% if bonPeage.datePassage %}{{ bonPeage.datePassage|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                <td>{{ bonPeage.montant }}</td>
+                            </tr>
+            {%else%}
+            {%if entity.etat is sameas('cloturer')%}
+                            <tr><td colspan="3">Aucun bon de péage n'a été enregistré.</td></tr>
+            {%else%}
+                            <tr class="text-danger"><td colspan="10">Les bons Péage seront mentionnés une fois la feuille de mission serait clôturée</td></tr>
+		{%endif%}	
+        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset>
+                <legend> Les bons de carburant et huile </legend>
+
+                <!--div class="row-fluid">
+                <ol class="span4 manutentions" data-prototype="{# form_widget(form.manutentions.vars.prototype)|e #}">       
+                </ol>
+                </div-->     
+                <div class="row-fluid">
+                   <table class="table-responsive records_list table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Numéro</th>
+                                <th>Lieu</th>
+                                <th>Ville</th>
+                                <th>Date</th>
+                                <th>Quantite (Litres)</th>
+                                 <th>P.U. (Dhs)</th>
+                                <th>Montant (Dhs)</th>
+                                <th>Compteur (Km)</th>
+                                <th>Type de Consommation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        {% for bon in entity.getBonCarburantHuiles %}
+                            <tr>
+                                <td>{{ bon.numCarte|default('-----') }}</td>
+                                <td>{{ bon.lieu|default('-----') }}</td>
+                                <td>{{ bon.ville|default('-----') }}</td>
+                                <td>{% if bon.date %}{{ bon.date|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                <td>{{ bon.quantite|default('-----') }}</td>
+                                <td>{{ bon.prixUnitaire|default('-----')  }}</td>  
+                                <td>{{ bon.montant|default('-----')  }}</td>               
+                                <td>{{ bon.compteur }}</td>
+                                <td>{{ bon.typeConsommation|default('-----') }}</td> 
+                            </tr>
+
+            {%else %}
+			{%if entity.etat is sameas('cloturer')%}
+                            <tr><td colspan="8">Aucun bon de Carburant n'a été enregistré.</td></tr>
+            {%else%}
+                            <tr class="text-danger"><td colspan="9">Les bons Carburant seront mentionnés une fois la feuille de mission serait clôturée</td></tr>
+		{%endif%}
+        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>  
+
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset>
+                <legend> Synthèse de mesures </legend>
+
+                <table class="table-responsive records_list table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Différence de kilométrage (Km)</th>
+                            <th rowspan="2">Distance Parcourue (Km)</th>
+                            <th colspan="3">Bénificier de : </th>
+                            <th rowspan="2">Quantite (Litres)</th>
+                            <th rowspan="2">Nombre des Prises</th>
+                            <th colspan="2">Montant (Dhs)</th>
+                            <th rowspan="2">Nombre de jours</th>
+                            <th rowspan="2">Prime De Remorque</th>
+
+                        </tr>
+                        <tr>
+                            <th>Petit Déjeuner</th>
+                            <th>Repas</th>
+                            <th>Découcher</th>
+                            <th>Carburant</th>
+                            <th>Peage</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                {%if entity.etat is sameas("cloturer")%}
+                            <td class="alert {%if entity.calcDiffKm>10%}alert-danger{%else%}alert-success{%endif%}">{{entity.calcDiffKm|default("0")}}</td>
+                            <td>{{entity.calcKmParcourus|default("------")}}</td>
+                            <td>{{entity.calcNbPetitDej|default("------")}}</td>
+                            <td>{{entity.calcNbRepas|default("------")}}</td>
+                            <td>{{entity.calcNbDecoucher|default("------")}}</td>
+                            <td>{{entity.calcQuantite|default("------")}}</td>
+                            <td>{{entity.calcPrise|default("------")}}</td>
+                            <td>{{entity.calcMontantCarburant|default("------")}}</td>
+                            <td>{{entity.calcMontantPeage|default("------")}}</td>
+                            <td>{{entity.calcNbJours|default("------")}}</td>               
+                            <td>{%if entity.primeRemorque%}Bénificiaire{%else%}Non{%endif%}</td>
+                {%else%}
+                            <td colspan="10" class="text-danger">Ces mesures seront calculés une fois la feuille de mission serait clôturée</td>
+                {%endif%}
+                        </tr>
+                    </tbody>
+                </table>
+
+            </fieldset>
+        </div>
+    </div>
+
+</div> 
+{%if role.affFDR%}
+<div class="row-fluid">
+    <a href="{{ path('feuillederoute') }}" class="pull-right">
+        Revenir à la liste
+    </a>
+</div>
+{%endif%}
+<div class="cacher">{{ form_rest(form) }}</div>
+
+{{ form_end(form) }}
+{% endblock %}
+{% endblock fos_user_content %}

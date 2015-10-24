@@ -1,0 +1,35 @@
+manutentionnaire:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:index" }
+
+manutentionnaire_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:show" }
+
+manutentionnaire_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:new" }
+
+manutentionnaire_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:create" }
+    methods:  POST
+
+manutentionnaire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:edit" }
+
+manutentionnaire_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:update" }
+    methods:  [POST, PUT]
+
+manutentionnaire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:delete" }
+    methods:  [POST, DELETE]
+
+manutentionnaire_recherche:
+    path:    /search
+    defaults: { _controller: "FdrAdminBundle:Manutentionnaire:recherche" }
+    methods:  GET

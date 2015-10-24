@@ -1,0 +1,90 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}BonCarburantHuile|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Affichage d'un BonCarburantHuile</h1></div>
+
+{{ form_start(form) }}
+<div class="desactiver-champs">
+    <div class="row">
+
+        <span class="alert-danger ">{{ form_errors(form) }}</span>
+    </div>
+
+    <div class="row">
+        <div class="span6 offset3">
+
+            <fieldset>
+                <legend></legend>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.id," Identifant ") }}</div>
+{{ form_widget(form.id) }}<span class="alert-danger ">{{ form_errors(form.id) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.numcarte," Numero Carte ") }}</div>
+{{ form_widget(form.numcarte) }}<span class="alert-danger ">{{ form_errors(form.numcarte) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.ville," Lieu de station ") }}</div>
+{{ form_widget(form.ville) }}<span class="alert-danger ">{{ form_errors(form.ville) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.type," Type ") }}</div>
+{{ form_widget(form.type) }}<span class="alert-danger ">{{ form_errors(form.type) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.date," Date de passage ") }}</div>
+{{ form_widget(form.date) }}<span class="alert-danger ">{{ form_errors(form.date) }}</span>
+                </div>
+
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.quantite," Quantité ") }}</div>
+{{ form_widget(form.quantite) }}<span class="alert-danger ">{{ form_errors(form.quantite) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.prixUnitaire," Prix Unitaire ") }}</div>
+{{ form_widget(form.prixUnitaire) }}<span class="alert-danger ">{{ form_errors(form.prixUnitaire) }}</span>
+                </div>
+                
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.montant," Montant ") }}</div>
+{{ form_widget(form.montant) }}<span class="alert-danger ">{{ form_errors(form.montant) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.compteur," Compteur d'avant ") }}</div>
+{{ form_widget(form.compteur) }}<span class="alert-danger ">{{ form_errors(form.compteur) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5"><label>Feuille de Route</label></div>
+                    <input type="text" readonly="readonly" value="{{ entity.feuilleDeRoute }}"/></span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.typeConsommation," Type de Consommation") }}</div>
+{{ form_widget(form.typeConsommation) }}<span class="alert-danger ">{{ form_errors(form.typeConsommation) }}</span>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+</div> 
+<br/>
+{% if role.affBonCarburantHuile%}
+<div class="row-fluid">
+    <a  href="{{ path('boncarburanthuile') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{{ form_end(form) }}
+{% endblock %}
+{% endblock fos_user_content %}

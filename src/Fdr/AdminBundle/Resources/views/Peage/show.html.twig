@@ -1,0 +1,67 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Peage|Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1> Affichage d'un Peage</h1></div>
+
+
+
+{{ form_start(form) }}
+<div class="desactiver-champs">
+    <div class="row">
+        <span class="alert-danger ">{{ form_errors(form) }}</span>
+    </div>
+
+    <div class="row">
+
+        <div class="span6 offset3">
+
+            <fieldset>
+                <legend>Formulaire d'ajout</legend>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.id," Identifiant ") }}</div>
+{{ form_widget(form.id) }}<span class="alert-danger ">{{ form_errors(form.id) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.numCarte," Num. de Carte ") }}</div>
+{{ form_widget(form.numCarte) }}<span class="alert-danger ">{{ form_errors(form.numCarte) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.datePassage," Date de passage ") }}</div>
+{{ form_widget(form.datePassage) }}<span class="alert-danger ">{{ form_errors(form.datePassage) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.lieu," Lieu ") }}</div>
+{{ form_widget(form.lieu) }}<span class="alert-danger ">{{ form_errors(form.lieu) }}</span>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">{{ form_label(form.montant," Montant ") }}</div>
+{{ form_widget(form.montant) }}<span class="alert-danger ">{{ form_errors(form.montant) }}</span>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span5"><label for='fdr'>Feuille de route associée :</label></div>
+                    <input type="text" value="{{entity.feuillederoute}}"/>
+                </div>
+
+            </fieldset>
+
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+<br/>
+{% if role.affPeage%}
+<div class="row-fluid">
+    <a  href="{{ path('peage') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+
+{% endblock fos_user_content %}

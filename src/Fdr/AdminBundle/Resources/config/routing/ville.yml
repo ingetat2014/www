@@ -1,0 +1,30 @@
+ville:
+    path:     /
+    defaults: { _controller: "FdrAdminBundle:Ville:index" }
+
+ville_show:
+    path:     /{id}/show
+    defaults: { _controller: "FdrAdminBundle:Ville:show" }
+
+ville_new:
+    path:     /new
+    defaults: { _controller: "FdrAdminBundle:Ville:new" }
+
+ville_create:
+    path:     /create
+    defaults: { _controller: "FdrAdminBundle:Ville:create" }
+    methods:  POST
+
+ville_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FdrAdminBundle:Ville:edit" }
+
+ville_update:
+    path:     /{id}/update
+    defaults: { _controller: "FdrAdminBundle:Ville:update" }
+    methods:  [POST, PUT]
+
+ville_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FdrAdminBundle:Ville:delete" }
+    methods:  [POST, DELETE]

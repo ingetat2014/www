@@ -1,0 +1,60 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}BonCarburantHuile|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h2> Liste des bons de carburant</h2></div>
+<div class="row-fluid">
+    <table class="table-responsive records_list table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Feuille De Route</th>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Quantite(Litres)</th>
+                <th>Prix Unitaire(Dhs)</th>
+                <th>Montant(Dhs)</th>
+                <th>Compteur(Km)</th>
+                <th>Type de Consommation</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td>{{ entity }}</td>
+                <td>{{ entity.feuilleDeRoute|default('-----') }}</td>
+                <td>{{ entity.lieu|default('-----') }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y/m/d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.quantite|default('-----') }}</td>
+                <td>{{ entity.prixUnitaire|default('-----') }}</td>
+                <td>{{ entity.montant|default('-----')  }}</td>               
+
+                <td>{{ entity.compteur|default("-----") }}</td>
+                <td>{{ entity.typeConsommation|default('-----') }}</td> 
+
+                <td>
+                    {% if role.affBonCarburantHuile%}
+                    <div class="col-md-2">
+                        <a target="_blank" href="{{ path('boncarburanthuile_show', { 'id': entity.id }) }}">
+                            <button title="Afficher" type="submit">
+                                <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                            </button>
+                        </a> 
+                    </div>
+                    
+                        {% endif %}
+                </td>
+            </tr>
+            {% else %}<tr><td colspan="9"><em>Aucun bon carburant n'existe pour le moment</em></td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+    {% endblock %}
+{% endblock fos_user_content %}

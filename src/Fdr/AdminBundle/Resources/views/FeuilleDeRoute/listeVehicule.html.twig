@@ -1,0 +1,293 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% if type=="vehicule" %}
+{% set t = "Tous les véhicules" %}
+{% endif %}
+{% if type=="typeVehicule" %}
+{% set t = "tous les types de véhicule" %}
+{% endif %}
+{% if type=="chauffeur" %}
+{% set t = "Tous les chauffeurs" %}
+{% endif %}
+{% if type=="chauffeurX" %}
+{% set t = "chauffeur: "~x %}
+{% endif %}
+{% if type=="vehiculeX" %}
+{% set t = "véhicule: "~x %}
+{% endif %}
+{% if type=="toutes" %}
+{% set t = "toutes les feuilles" %}
+{% endif %}
+{% if id==null %}
+{% set id =0 %}
+{% endif %}
+{% block title %}Reporting|Filtre|{{t}}{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+{% if type=="vehiculeX" %}
+<div class="row-fluid">
+    <span class="text-capitalize header">Durée de mise en circulation : </span>
+    <span class="text-success">
+    {%for key,valeur in periode%}
+   {% if valeur!=0 %}   
+    {% if loop.last %} et {% endif %}
+        <span class="text-primary badge">{{valeur}}</span> {{key}}
+    {% endif %}
+    {% else %}
+        <span class="badge">Pas mentionné</span>
+    {% endfor %}
+    </span>
+</div>
+
+{% endif %}
+<h2> <span class="text-primary ">Etat par </span>{{t}}</h2>
+<br/>
+<span class="text-primary ">Periode choisie : </span> {{dateDebut|date('d-m-Y')}} &#10174; {{dateFin|date('d-m-Y')}}
+<div class="row-fluid" >
+    <div class="span2 pull-right">
+        <a target="_blank" href="{{ path('etatExcel',{'dateDebut': dateDebut ,'dateFin':dateFin,'type':type,'id':id}) }}">
+            <button class="btn btn-default">
+                Exporter 
+            </button>
+        </a> 
+    </div>
+</div>
+<br/>
+
+    {% if type=="typeVehicule" %}
+<table class="table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Type du Véhicule</th>
+            <th>L/100</th>
+            <th>Nombre de Kms</th>
+            <th>Litres</th>
+            <th>Prises</th>
+            <th>Nombre de mission</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+            <td>  <a target="_blank"  href="{{ path('groupeVehicule',{'dateDebut': dateDebut ,'dateFin':dateFin,'type': entity.type,'id':id }) }}"> {{ entity.type }} </a></td>
+            <td>{% if entity.cntkm!=0 %} {{ ((entity.cntQ * 100)/entity.cntkm)|number_format(5, '.', ',') }} {% else %} 0{% endif %}</td>
+            <td>{% if entity.cntkm!=0 %}{{ entity.cntkm }} {% else %} 0{% endif %} Km </td>
+            <td>{% if entity.cntQ!=0 %}{{ entity.cntQ }}{% else %} 0{% endif %} L</td>
+            <td>{% if entity.prises!=0 %}{{ entity.prises }}{% else %} 0{% endif %}</td>
+            <td>{% if entity.cnt!=0 %}{{ entity.cnt }}{% else %} 0{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+    {% endif %}
+
+     {% if type=="vehicule" %}
+<table class="table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Num de société </th>
+            <th>Matricule</th>
+            <th>Type du Véhicule</th>
+            <th> Avec Remorque </th>
+            <th>L/100</th>
+            <th>Compteur</th>
+            <th>Litres</th>
+            <th>Prises</th>
+            <th>Nombre de mission</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+
+                 {% if id!=0 %}
+                {% set typeEnvoyer = "vehiculeX|"~entity.idVehicule %} {#~entity.idVehicule#}
+            <td > <a target="_blank" href="{{ path('groupeMateriel',{'dateDebut': dateDebut ,'dateFin':dateFin,'type': typeEnvoyer }) }}">{{ entity.numSociete }}</a></td>
+                {% else %} <td>{{ entity.numSociete }}</td>{% endif %}<td>{{ entity.matricule }}</td>
+            <td>{{ entity.type }}</td> 
+            <td>{% if entity.remorque!=0 %} Oui {% else %} Non{% endif %}</td>
+            <td>{% if entity.cntkm!=0 %} {{ ((entity.cntQ * 100)/entity.cntkm)|number_format(5, '.', ',') }} {% else %} 0{% endif %}</td>
+            <td>{% if entity.cntkm!=0 %}{{ entity.cntkm }} {% else %} 0{% endif %} Km </td>
+            <td>{% if entity.cntQ!=0 %}{{ entity.cntQ }}{% else %} 0{% endif %} L</td>
+            <td>{% if entity.prises!=0 %}{{ entity.prises }}{% else %} 0{% endif %}</td>
+            <td>{% if entity.cnt!=0 %}{{ entity.cnt }}{% else %} 0{% endif %}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+    {% endif %}
+      {% if type=="vehiculeX" %}
+<table class="span12 table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Num de société </th>
+            <th>Matricule </th>
+            <th>Type du Véhicule</th>
+            <th>Avec Remorque </th>
+            <th>L/100</th>
+            <th>Compteur</th>
+            <th>Litres</th>
+            <th>Prises</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+            {% if entity.kmParcouru!=0 %}
+        <tr>
+            <td>{{ entity.numSociete }}</td> {#rowspan="{{pagination | length}}"#}
+            <td>{{ entity.matricule }}</td>
+            <td>{{ entity.type }}</td> 
+            <td >{% if entity.remorque!=0 %} Oui {% else %} Non{% endif %}</td>
+            <td>{% if entity.kmParcouru!=0 %} {{ ((entity.quantite * 100)/entity.kmParcouru)|number_format(5, '.', ',') }} {% else %} 0{% endif %}</td>
+            <td>{% if entity.kmParcouru!=0 %}{{ entity.kmParcouru }} {% else %} 0{% endif %} Km </td>
+            <td>{% if entity.quantite!=0 %}{{ entity.quantite }}{% else %} 0{% endif %} L</td>
+            <td>{% if entity.nbPrise!=0 %}{{ entity.nbPrise }}{% else %} 0{% endif %}</td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table> 
+    {% endif %}
+
+     {#debut#}
+     {% if type=="toutes" %}
+<table class="span12 table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Code Fdr </th>
+            <th>Periodes</th>
+			<th>Chauffeurs</th>
+            <th>Matricule véhicule </th>
+            <th>Num. société véhicule</th>
+            <th>Type du Véhicule</th>
+            <th>Avec Remorque </th>
+            <th>L/100</th>
+            <th>Compteur</th>
+            <th>Litres</th>
+            <th>Prises</th>
+			<th>etat</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+            {# if entity.calcKmParcourus!=0 #}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td>{% if entity.dateDebutMission %}Du {{ entity.dateDebutMission|date('d-m-Y H:i') }}{% endif %}{% if entity.dateFinMission %} à {{ entity.dateFinMission|date('d-m-Y H:i') }}{% endif %}</td>
+            <td>
+			 <ol>
+                {% for man in entity.manutentions %}
+                        <li><input type="text" value="{{man}}" size="35" readonly/></li>                     
+                {% endfor %}
+                    </ol>
+			</td>
+			<td>{{ entity.vehicule.matricule }}</td>
+            <td>{{ entity.vehicule.numSociete }}</td>
+            <td>{{ entity.vehicule.type }}</td> 
+            <td >{% if entity.vehicule.remorque!=0 %} Oui {% else %} Non{% endif %}</td>
+            <td>{% if entity.calcKmParcourus!=0 %} {{ ((entity.calcQuantite * 100)/entity.calcKmParcourus)|number_format(5, '.', ',') }} {% else %} 0{% endif %}</td>
+            <td>{% if entity.calcKmParcourus!=0 %}{{ entity.calcKmParcourus }} {% else %} 0{% endif %} Km </td>
+            <td>{% if entity.calcQuantite!=0 %}{{ entity.calcQuantite }}{% else %} 0{% endif %} L</td>
+            <td>{% if entity.calcPrise!=0 %}{{ entity.calcPrise }}{% else %} 0{% endif %}</td>
+			<td>{{ entity.etat }}</td>
+        </tr>
+            {# endif #}
+        {% endfor %}
+    </tbody>
+</table> 
+    {% endif %}
+     {#fin#}
+
+    {% if type=="chauffeur" %}
+<table class="span12 table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Matricule</th>
+            <th>Nom Prénom</th>
+              {#  <th>Véhicule</th>
+                <th>Type de prestation </th>#}
+            <th>Nombre de jours</th>
+            <th>Nombre de km parcourus </th>
+            <th>Nombre de repas</th>
+            <th>Nombre de petit déjeuner </th>
+            <th>Nombre de découcher</th>
+            <th>Nombre de manutention </th>
+            <th>Nombre de prise</th>
+            <th>Quantité</th>
+            <th>Nombre de conduction de remorque</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+                {% set typeChauffeurEnvoyer = "chauffeurX|"~entity.chauffId %}
+            <td> <a target="_blank" href="{{ path('groupeMateriel',{'dateDebut': dateDebut ,'dateFin':dateFin,'type': typeChauffeurEnvoyer }) }}">{{ entity.chauffeurMatricule }} </a></td>
+            <td>{{ entity.chauffNom }}</td> 
+                {#<td>{{ entity.typePrestation}} </td>#}
+            <td>{{ entity.nbJours }}</td>
+            <td>{{ entity.kmParcouru }}</td> 
+            <td>{{ entity.nbRepas }}</td> 
+            <td>{{ entity.nbPetitDej }}</td>
+            <td>{{ entity.nbDecoucher}} </td>
+            <td>{{ entity.nbManutention }}</td> 
+            <td>{{ entity.prise }}</td>
+            <td>{{ entity.quantiteLitre}} </td>
+            <td>{{ entity.remorque}} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% endif %}
+  {% if type=="chauffeurX" %}
+<table class="span12 table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Matricule</th>
+            <th>Nom Prénom</th>
+            <th>Dates de mission </th>
+            <th>Véhicule</th>
+              {#  <th>Type de prestation </th>#}
+            <th>Nombre de jours</th>
+            <th>Nombre de km parcourus </th>
+            <th>Nombre de repas</th>
+            <th>Nombre de petit déjeuner </th>
+            <th>Nombre de découcher</th>
+            <th>Nombre de manutention </th>
+            <th>Nombre de prise</th>
+            <th>Quantité</th>
+            <th>Nombre de conduction de remorque</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+            <td>{{ entity.chauffeurMatricule }}</td> 
+            <td>{{ entity.chauffNom }}</td> 
+            <td>{{ entity.date }}</td>
+            <td>{{ entity.vehicule }}</td>
+            <td>{{ entity.nbJours }}</td>
+            <td>{{ entity.kmParcouru }}</td> 
+            <td>{{ entity.nbRepas }}</td> 
+            <td>{{ entity.nbPetitDej }}</td>
+            <td>{{ entity.nbDecoucher}} </td>
+            <td>{{ entity.nbManutention }}</td> 
+            <td>{{ entity.prise }}</td>
+            <td>{{ entity.quantiteLitre}} </td>
+            <td>{{ entity.remorque}} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% endif %}
+
+<div class="span12" style="text-align: center">    
+    <div class="row-fluid">        
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>   
+    </div>
+</div>
+{% endblock %}
+{% endblock fos_user_content %}

@@ -1,0 +1,738 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Role|Edit{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div class="page-header"><h1>Modification d'un role</h1></div>
+
+
+
+{{ form_start(edit_form) }}
+<div class="row-fluid">
+    <span class="alert-danger ">{{ form_errors(edit_form) }}</span>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <fieldset><!--1-->
+            <legend>Formulaire de modification : </legend>
+            <div class="row-fluid">
+                <div class="span2 offset3">{{ form_label(edit_form.nomRole) }}</div>
+{{ form_widget(edit_form.nomRole) }}<span class="alert-danger ">{{ form_errors(edit_form.nomRole) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span2 offset3">{{ form_label(edit_form.description) }}</div>
+{{ form_widget(edit_form.description) }}<span class="alert-danger ">{{ form_errors(edit_form.description) }}</span>
+            </div>
+        </fieldset><!--1-->
+    </div>
+</div>
+<div class="row-fluid">
+    <fieldset>
+        <legend></legend>
+        <div class="span2">{{ form_label(edit_form.crudAdmin) }}</div>
+{{ form_widget(edit_form.crudAdmin) }}<span class="alert-danger ">{{ form_errors(edit_form.crudAdmin) }}</span>
+    </fieldset>
+</div>  
+
+<div class="row-fluid"><!--fdr+fdl-->
+    <div class="span6">
+        <fieldset> 
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudFDR"/>
+                Feuille De Route : 
+            </legend>
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset">
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="gestionGlobaleFDR"/>
+                        Gestion globale :
+                    </legend>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affFDR,' Affichage ') }}</div>
+{{ form_widget(edit_form.affFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.affFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.crFDR,' Ajout ') }}</div>
+{{ form_widget(edit_form.crFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.crFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upFDR,' Modification ') }}</div>
+{{ form_widget(edit_form.upFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.upFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.delFDR,' Suppression ') }}</div>
+{{ form_widget(edit_form.delFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.delFDR) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset"> 
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="panneFDR"/>
+                        Panne :
+                    </legend>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affFDRPanne,' Affichage ') }}</div>
+{{ form_widget(edit_form.affFDRPanne) }}<span class="alert-danger ">{{ form_errors(edit_form.affFDRPanne) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.crFDRPanne,' Ajout ') }}</div>
+{{ form_widget(edit_form.crFDRPanne) }}<span class="alert-danger ">{{ form_errors(edit_form.crFDRPanne) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upFDRPanne,' Modification ') }}</div>
+{{ form_widget(edit_form.upFDRPanne) }}<span class="alert-danger ">{{ form_errors(edit_form.upFDRPanne) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.delFDRPanne,' Suppression ') }}</div>
+{{ form_widget(edit_form.delFDRPanne) }}<span class="alert-danger ">{{ form_errors(edit_form.delFDRPanne) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset" >
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="autreAgenceFDR"/>
+                        Autre Agence : 
+                    </legend>    
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affFDRAutrAgence,' Affichage ') }}</div>
+{{ form_widget(edit_form.affFDRAutrAgence) }}<span class="alert-danger ">{{ form_errors(edit_form.affFDRAutrAgence) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.crFDRAutrAgence,' Ajout ') }}</div>
+{{ form_widget(edit_form.crFDRAutrAgence) }}<span class="alert-danger ">{{ form_errors(edit_form.crFDRAutrAgence) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upFDRAutrAgence,' Modification ') }}</div>
+{{ form_widget(edit_form.upFDRAutrAgence) }}<span class="alert-danger ">{{ form_errors(edit_form.upFDRAutrAgence) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.delFDRAutrAgence,' Suppression ') }}</div>
+{{ form_widget(edit_form.delFDRAutrAgence) }}<span class="alert-danger ">{{ form_errors(edit_form.delFDRAutrAgence) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset">
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="autreFDR"/>
+                        Autres : 
+                    </legend> 
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.cloturerFDR,' Cloture  ') }}</div>
+{{ form_widget(edit_form.cloturerFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.cloturerFDR) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upCloturerFDR,' Modifier après Cloture  ') }}</div>
+{{ form_widget(edit_form.upCloturerFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.upCloturerFDR) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.cancelFDR,' Annulation  ') }}</div>
+{{ form_widget(edit_form.cancelFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.cancelFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.imprimerFDR,' Impression  ') }}</div>
+{{ form_widget(edit_form.imprimerFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.imprimerFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.rechercherFDR,' Recherche  ') }}</div>
+{{ form_widget(edit_form.rechercherFDR) }}<span class="alert-danger ">{{ form_errors(edit_form.rechercherFDR) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.editCompteur,' Edition Compteur ') }}</div>
+{{ form_widget(edit_form.editCompteur) }}<span class="alert-danger ">{{ form_errors(edit_form.editCompteur) }}</span>
+                    </div>    
+                </fieldset>
+            </div>
+
+        </fieldset>
+    </div>
+
+    <div class="span6">
+        <fieldset> 
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudFDL"/>  
+                Feuille De Mission : 
+            </legend>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset"> 
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="clientCmpteFDL"/>
+                        Client En Compte :
+                    </legend>  
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affClientCompeFDL,' Affichage') }}</div>
+{{ form_widget(edit_form.affClientCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.affClientCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.crClientCompeFDL,' Ajout ') }}</div>
+{{ form_widget(edit_form.crClientCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.crClientCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upClientCompeFDL,' Modification ') }}</div>
+{{ form_widget(edit_form.upClientCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.upClientCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.delClientCompeFDL,' Suppression ') }}</div>
+{{ form_widget(edit_form.delClientCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.delClientCompeFDL) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.cancelClientCompeFDL,' Annulation ') }}</div>
+{{ form_widget(edit_form.cancelClientCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.cancelClientCompeFDL) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset">
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="clientNnCmpteFDL"/>
+                        Client Non En Compte : 
+                    </legend> 
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affClientNnCompeFDL,' Affichage ') }}</div>
+{{ form_widget(edit_form.affClientNnCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.affClientNnCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.crClientNnCompeFDL,' Ajout ') }}</div>
+{{ form_widget(edit_form.crClientNnCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.crClientNnCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upClientNnCompeFDL,' Modification ') }}</div>
+{{ form_widget(edit_form.upClientNnCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.upClientNnCompeFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.delClientNnCompeFDL,' Suppression ') }}</div>
+{{ form_widget(edit_form.delClientNnCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.delClientNnCompeFDL) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.cancelClientNnCompeFDL,' Annulation ') }}</div>
+{{ form_widget(edit_form.cancelClientNnCompeFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.cancelClientNnCompeFDL) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset">
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="accusRecFDL"/>
+                        Accusé De Reception : 
+                    </legend> 
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.confRecDocCtm,' Auprès du CTM ') }}</div>
+{{ form_widget(edit_form.confRecDocCtm) }}<span class="alert-danger ">{{ form_errors(edit_form.confRecDocCtm) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.confRecDocClient,' Auprès du Client ') }}</div>
+{{ form_widget(edit_form.confRecDocClient) }}<span class="alert-danger ">{{ form_errors(edit_form.confRecDocClient) }}</span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row-fluid">
+                <fieldset>
+                    <legend class="subfieldset"> 
+                        <input   title="(Dé)selectionner Tout" type="checkbox" id="autreFDL"/>
+                        Autres :
+                    </legend> 
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.imprimerFDL,' Impression  ') }}</div>
+{{ form_widget(edit_form.imprimerFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.imprimerFDL) }}</span>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.rechercherFDL,' Recherche  ') }}</div>
+{{ form_widget(edit_form.rechercherFDL) }}<span class="alert-danger ">{{ form_errors(edit_form.rechercherFDL) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.ttEtatAfficherParFdl,' Afficher par tout état  ') }}</div>
+{{ form_widget(edit_form.ttEtatAfficherParFdl) }}<span class="alert-danger ">{{ form_errors(edit_form.ttEtatAfficherParFdl) }}</span>
+                    </div> 
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affectationVehicule,' Affectation Véhicule') }}</div>
+{{ form_widget(edit_form.affectationVehicule) }}<span class="alert-danger ">{{ form_errors(edit_form.affectationVehicule) }}</span>
+                    </div> 
+
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.affectationChauffManu,' Affectation Chauffeur') }}</div>
+{{ form_widget(edit_form.affectationChauffManu) }}<span class="alert-danger ">{{ form_errors(edit_form.affectationChauffManu) }}</span>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upCloturerFDRAffr,'Cloture ') }}</div>
+{{ form_widget(edit_form.cloturerFDRAffr) }}<span class="alert-danger ">{{ form_errors(edit_form.cloturerFDRAffr) }}</span>
+                    </div>
+                    
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.upCloturerFDRAffr,'Modifier après Cloture ') }}</div>
+{{ form_widget(edit_form.upCloturerFDRAffr) }}<span class="alert-danger ">{{ form_errors(edit_form.upCloturerFDRAffr) }}</span>
+                    </div>
+                    
+                    <div class="row-fluid">
+                        <div class="span4">{{ form_label(edit_form.editerPercentAssurParam,'Edition % Assurance') }}</div>
+{{ form_widget(edit_form.editerPercentAssurParam) }}<span class="alert-danger ">{{ form_errors(edit_form.editerPercentAssurParam) }}</span>
+                    </div>
+                </fieldset>
+
+            </div>
+        </fieldset>
+    </div>
+
+</div><!--fdr+fdl-->
+
+<div class="row-fluid">
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudClient"/>
+                Client :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affClient,' Affichage ') }}</div>
+{{ form_widget(edit_form.affClient) }}<span class="alert-danger ">{{ form_errors(edit_form.affClient) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crClient,' Ajout ') }}</div>
+{{ form_widget(edit_form.crClient) }}<span class="alert-danger ">{{ form_errors(edit_form.crClient) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upClient,' Modification ') }}</div>
+{{ form_widget(edit_form.upClient) }}<span class="alert-danger ">{{ form_errors(edit_form.upClient) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delClient,' Suppression ') }}</div>
+{{ form_widget(edit_form.delClient) }}<span class="alert-danger ">{{ form_errors(edit_form.delClient) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudVehicule"/>
+                Vehicule :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affVehicule,' Affichage ') }}</div>
+{{ form_widget(edit_form.affVehicule) }}<span class="alert-danger ">{{ form_errors(edit_form.affVehicule) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crVehicule,' Ajout ') }}</div>
+{{ form_widget(edit_form.crVehicule) }}<span class="alert-danger ">{{ form_errors(edit_form.crVehicule) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upVehicule,' Modification ') }}</div>
+{{ form_widget(edit_form.upVehicule) }}<span class="alert-danger ">{{ form_errors(edit_form.upVehicule) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delVehicule,' Suppression ') }}</div>
+{{ form_widget(edit_form.delVehicule) }}<span class="alert-danger ">{{ form_errors(edit_form.delVehicule) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudChauffeur"/>
+                Chauffeur :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affChauffeur,' Affichage ') }}</div>
+{{ form_widget(edit_form.affChauffeur) }}<span class="alert-danger ">{{ form_errors(edit_form.affChauffeur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crChauffeur,' Ajout ') }}</div>
+{{ form_widget(edit_form.crChauffeur) }}<span class="alert-danger ">{{ form_errors(edit_form.crChauffeur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upChauffeur,' Modification ') }}</div>
+{{ form_widget(edit_form.upChauffeur) }}<span class="alert-danger ">{{ form_errors(edit_form.upChauffeur) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delChauffeur,' Suppression ') }}</div>
+{{ form_widget(edit_form.delChauffeur) }}<span class="alert-danger ">{{ form_errors(edit_form.delChauffeur) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+</div>
+
+<div class="row-fluid">
+
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudUtilisateur"/>
+                Utilisateur :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affUtilisateur,' Affichage ') }}</div>
+{{ form_widget(edit_form.affUtilisateur) }}<span class="alert-danger ">{{ form_errors(edit_form.affUtilisateur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crUtilisateur,' Ajout ') }}</div>
+{{ form_widget(edit_form.crUtilisateur) }}<span class="alert-danger ">{{ form_errors(edit_form.crUtilisateur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upUtilisateur,' Modification ') }}</div>
+{{ form_widget(edit_form.upUtilisateur) }}<span class="alert-danger ">{{ form_errors(edit_form.upUtilisateur) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delUtilisateur,' Suppression ') }}</div>
+{{ form_widget(edit_form.delUtilisateur) }}<span class="alert-danger ">{{ form_errors(edit_form.delUtilisateur) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudDepot"/>
+                Depot :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affDepot,' Affichage ') }}</div>
+{{ form_widget(edit_form.affDepot) }}<span class="alert-danger ">{{ form_errors(edit_form.affDepot) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crDepot,' Ajout ') }}</div>
+{{ form_widget(edit_form.crDepot) }}<span class="alert-danger ">{{ form_errors(edit_form.crDepot) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upDepot,' Modification ') }}</div>
+{{ form_widget(edit_form.upDepot) }}<span class="alert-danger ">{{ form_errors(edit_form.upDepot) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delDepot,' Suppression ') }}</div>
+{{ form_widget(edit_form.delDepot) }}<span class="alert-danger ">{{ form_errors(edit_form.delDepot) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudFiliale"/>
+                Filiale :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affFiliale,' Affichage ') }}</div>
+{{ form_widget(edit_form.affFiliale) }}<span class="alert-danger ">{{ form_errors(edit_form.affFiliale) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crFiliale,' Ajout ') }}</div>
+{{ form_widget(edit_form.crFiliale) }}<span class="alert-danger ">{{ form_errors(edit_form.crFiliale) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upFiliale,' Modification ') }}</div>
+{{ form_widget(edit_form.upFiliale) }}<span class="alert-danger ">{{ form_errors(edit_form.upFiliale) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delFiliale,' Suppression ') }}</div>
+{{ form_widget(edit_form.delFiliale) }}<span class="alert-danger ">{{ form_errors(edit_form.delFiliale) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudIndisponibilite"/>
+                Indisponibilite :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affIndisponibilite,' Affichage ') }}</div>
+{{ form_widget(edit_form.affIndisponibilite) }}<span class="alert-danger ">{{ form_errors(edit_form.affIndisponibilite) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crIndisponibilite,' Ajout ') }}</div>
+{{ form_widget(edit_form.crIndisponibilite) }}<span class="alert-danger ">{{ form_errors(edit_form.crIndisponibilite) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upIndisponibilite,' Modification ') }}</div>
+{{ form_widget(edit_form.upIndisponibilite) }}<span class="alert-danger ">{{ form_errors(edit_form.upIndisponibilite) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delIndisponibilite,' Suppression ') }}</div>
+{{ form_widget(edit_form.delIndisponibilite) }}<span class="alert-danger ">{{ form_errors(edit_form.delIndisponibilite) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudSecteur"/>
+                Secteur :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affSecteur,' Affichage ') }}</div>
+{{ form_widget(edit_form.affSecteur) }}<span class="alert-danger ">{{ form_errors(edit_form.affSecteur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crSecteur,' Ajout ') }}</div>
+{{ form_widget(edit_form.crSecteur) }}<span class="alert-danger ">{{ form_errors(edit_form.crSecteur) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upSecteur,' Modification ') }}</div>
+{{ form_widget(edit_form.upSecteur) }}<span class="alert-danger ">{{ form_errors(edit_form.upSecteur) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delSecteur,' Suppression ') }}</div>
+{{ form_widget(edit_form.delSecteur) }}<span class="alert-danger ">{{ form_errors(edit_form.delSecteur) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudTypePrestation"/>
+                Type De Prestation :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affTypePrestation,' Affichage ') }}</div>
+{{ form_widget(edit_form.affTypePrestation) }}<span class="alert-danger ">{{ form_errors(edit_form.affTypePrestation) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crTypePrestation,' Ajout ') }}</div>
+{{ form_widget(edit_form.crTypePrestation) }}<span class="alert-danger ">{{ form_errors(edit_form.crTypePrestation) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upTypePrestation,' Modification ') }}</div>
+{{ form_widget(edit_form.upTypePrestation) }}<span class="alert-danger ">{{ form_errors(edit_form.upTypePrestation) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delTypePrestation,' Suppression ') }}</div>
+{{ form_widget(edit_form.delTypePrestation) }}<span class="alert-danger ">{{ form_errors(edit_form.delTypePrestation) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudTypeConsommation"/>
+                Type De Consommation :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affTypeConsommation,' Affichage ') }}</div>
+{{ form_widget(edit_form.affTypeConsommation) }}<span class="alert-danger ">{{ form_errors(edit_form.affTypeConsommation) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crTypeConsommation,' Ajout ') }}</div>
+{{ form_widget(edit_form.crTypeConsommation) }}<span class="alert-danger ">{{ form_errors(edit_form.crTypeConsommation) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upTypeConsommation,' Modification ') }}</div>
+{{ form_widget(edit_form.upTypeConsommation) }}<span class="alert-danger ">{{ form_errors(edit_form.upTypeConsommation) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delTypeConsommation,' Suppression ') }}</div>
+{{ form_widget(edit_form.delTypeConsommation) }}<span class="alert-danger ">{{ form_errors(edit_form.delTypeConsommation) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudManutentionnaire"/>
+                Manutentionnaire :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affManutentionnaire,' Affichage ') }}</div>
+{{ form_widget(edit_form.affManutentionnaire) }}<span class="alert-danger ">{{ form_errors(edit_form.affManutentionnaire) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crManutentionnaire,' Ajout ') }}</div>
+{{ form_widget(edit_form.crManutentionnaire) }}<span class="alert-danger ">{{ form_errors(edit_form.crManutentionnaire) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upManutentionnaire,' Modification ') }}</div>
+{{ form_widget(edit_form.upManutentionnaire) }}<span class="alert-danger ">{{ form_errors(edit_form.upManutentionnaire) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delManutentionnaire,' Suppression ') }}</div>
+{{ form_widget(edit_form.delManutentionnaire) }}<span class="alert-danger ">{{ form_errors(edit_form.delManutentionnaire) }}</span>
+            </div>
+        </fieldset>
+    </div>
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudRole"/>
+                Role :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affRole,' Affichage ') }}</div>
+{{ form_widget(edit_form.affRole) }}<span class="alert-danger ">{{ form_errors(edit_form.affRole) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crRole,' Ajout ') }}</div>
+{{ form_widget(edit_form.crRole) }}<span class="alert-danger ">{{ form_errors(edit_form.crRole) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upRole,' Modification ') }}</div>
+{{ form_widget(edit_form.upRole) }}<span class="alert-danger ">{{ form_errors(edit_form.upRole) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delRole,' Suppression ') }}</div>
+{{ form_widget(edit_form.delRole) }}<span class="alert-danger ">{{ form_errors(edit_form.delRole) }}</span>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudVille"/>
+                Ville :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affVille,' Affichage ') }}</div>
+{{ form_widget(edit_form.affVille) }}<span class="alert-danger ">{{ form_errors(edit_form.affVille) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crVille,' Ajout ') }}</div>
+{{ form_widget(edit_form.crVille) }}<span class="alert-danger ">{{ form_errors(edit_form.crVille) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upVille,' Modification ') }}</div>
+{{ form_widget(edit_form.upVille) }}<span class="alert-danger ">{{ form_errors(edit_form.upVille) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delVille,' Suppression ') }}</div>
+{{ form_widget(edit_form.delVille) }}<span class="alert-danger ">{{ form_errors(edit_form.delVille) }}</span>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="span4">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudParamEtModif"/>
+                Parametres/Modification :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affModification,' Affichage Modification ') }}</div>
+{{ form_widget(edit_form.affModification) }}<span class="alert-danger ">{{ form_errors(edit_form.affModification) }}</span>
+            </div> 
+
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delModification,' Suppression Modification ') }}</div>
+{{ form_widget(edit_form.delModification) }}<span class="alert-danger ">{{ form_errors(edit_form.delModification) }}</span>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.editerPlageHoraireParam,' Edition Plages Horaires ') }}</div>
+{{ form_widget(edit_form.editerPlageHoraireParam) }}<span class="alert-danger ">{{ form_errors(edit_form.editerPlageHoraireParam) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.reporting,' Reporting ') }}</div>
+{{ form_widget(edit_form.reporting) }}<span class="alert-danger ">{{ form_errors(edit_form.reporting) }}</span>
+            </div> 
+
+        </fieldset>
+    </div>
+
+
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudBonCarburantHuile"/>
+                Bon Carburant:
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affBonCarburantHuile,' Affichage ') }}</div>
+{{ form_widget(edit_form.affBonCarburantHuile) }}<span class="alert-danger ">{{ form_errors(edit_form.affBonCarburantHuile) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crBonCarburantHuile,' Ajout ') }}</div>
+{{ form_widget(edit_form.crBonCarburantHuile) }}<span class="alert-danger ">{{ form_errors(edit_form.crBonCarburantHuile) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upBonCarburantHuile,' Modification ') }}</div>
+{{ form_widget(edit_form.upBonCarburantHuile) }}<span class="alert-danger ">{{ form_errors(edit_form.upBonCarburantHuile) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delBonCarburantHuile,' Suppression ') }}</div>
+{{ form_widget(edit_form.delBonCarburantHuile) }}<span class="alert-danger ">{{ form_errors(edit_form.delBonCarburantHuile) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+
+</div>
+
+<div class="row-fluid">
+    <div class="span4 ">
+        <fieldset>
+            <legend>
+                <input   title="(Dé)selectionner Tout" type="checkbox" id="crudPeage"/>
+                Peage :
+            </legend>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.affPeage,' Affichage ') }}</div>
+{{ form_widget(edit_form.affPeage) }}<span class="alert-danger ">{{ form_errors(edit_form.affPeage) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.crPeage,' Ajout ') }}</div>
+{{ form_widget(edit_form.crPeage) }}<span class="alert-danger ">{{ form_errors(edit_form.crPeage) }}</span>
+            </div> 
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.upPeage,' Modification ') }}</div>
+{{ form_widget(edit_form.upPeage) }}<span class="alert-danger ">{{ form_errors(edit_form.upPeage) }}</span>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">{{ form_label(edit_form.delPeage,' Suppression ') }}</div>
+{{ form_widget(edit_form.delPeage) }}<span class="alert-danger ">{{ form_errors(edit_form.delPeage) }}</span>
+            </div> 
+        </fieldset>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12 center-block">
+{{ form_widget(edit_form.submit) }}
+    </div>
+            </div>
+
+{{ form_end(edit_form) }}
+<br/>
+      {% if role.affRole%}
+<div class="row-fluid">
+    <a  href="{{ path('role') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+
+{% endblock fos_user_content %}

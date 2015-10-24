@@ -1,0 +1,89 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Filiale|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header"> <h1>Liste des Filiales</h1></div>
+<div class="row-fluid">
+<table class="table-responsive records_list table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Libelle</th>
+            <th>Adresse</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in pagination %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.libelle|default("-----") }}</td>
+            <td>{{ entity.adresse|default("-----") }}</td>
+            <td class="col-md-6">
+                    {% if role.affFiliale%}
+                <div class="col-md-3">
+                    <a target="_blank" href="{{ path('filiale_show', { 'id': entity.id }) }}">
+                        <button title="Afficher" type="submit">
+                            <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                        </button>
+                    </a> 
+                </div>
+                
+                        {% endif %}
+                        {% if role.upFiliale%}
+                <div class="col-md-3">
+                    <a target="_blank" href="{{ path('filiale_edit', { 'id': entity.id }) }}">
+                        <button title="Afficher" type="submit">
+                            <img id="inputButtonModifier" title="Modifier" src="{{ asset('bundles/fdradmin/images/modifier.png') }}" />
+                        </button>
+                    </a> 
+                </div>
+                        {% endif %}
+                       {% if role.delFiliale%}
+                <div class="col-md-3">
+
+                        {{ form(form[entity.id]) }}
+                </div>
+                        {% endif %}
+            </td>
+        </tr>
+            {% else %}<tr><td colspan="3">Aucune Filiale n'existe pour le moment</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="span12" style="text-align: center">
+    <div class="row-fluid">
+        <div class="pagination-lg">{{ knp_pagination_render(pagination) }}</div>
+    </div>
+</div>
+<br/>
+    {% if role.crFiliale%}
+<div class="row-fluid">
+    <a target="_blank" href="{{ path('filiale_new') }}" class="pull-right">
+        <button class="btn btn-default">Ajouter une nouvelle entité</button>
+    </a>
+</div>
+    {% endif %}
+<script>
+    $('* [id="form_supprimer"]').each(function() {
+        var c = $(this).parent().parent().parent();
+        $(this).confirm({
+            title: "<span class='text-danger header-logo'>Confirmation de suppression : <span class='badge help-block' title='Si vous confirmez; cette feuille ne sera plus recupérée'> ( Action irréversible ? )</span></span>",
+            text: "<div class='text-danger'>Voulez-vous vraiment supprimer  ? </div>",
+            post: true,
+            confirm: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                c.submit();
+            },
+            cancel: function(button) {
+                button.fadeOut(500).fadeIn(500);
+                button.preventDefault();
+            },
+            confirmButton: "Oui, J'en veux",
+            cancelButton: "Non, Merci",
+            confirmButtonClass: "btn-danger"
+        });
+    }
+    );
+</script>
+{% endblock %}{% endblock fos_user_content %}

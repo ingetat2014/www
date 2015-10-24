@@ -1,0 +1,60 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Utilisateur | Show{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header"> <h1>Affichage d'un utilisateur</h1></div>
+
+<table class="table-responsive records_list table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <th>Code d'enregistrement</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ entity.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ entity.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Nom d'utilisateur</th>
+            <td>{{ entity.username }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td>{{ entity.roles[0] }}</td>
+        </tr>
+        <tr>
+            <th>Matricule</th>
+            <td>{{ entity.matricule }}</td>
+        </tr>
+        <tr>
+            <th>Cin</th>
+            <td>{{ entity.cin }}</td>
+        </tr>
+        <tr>
+            <th>Tel</th>
+            <td>{{ entity.tel }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ entity.adresse }}</td>
+        </tr>
+    </tbody>
+</table>
+
+ {% if role.affUtilisateur%}
+<div class="row-fluid">
+    <a  href="{{ path('user') }}" class="pull-right">
+        <button class="btn btn-default">Revenir à la liste</button>
+    </a>
+</div>
+{%endif%}
+{% endblock %}
+{% endblock fos_user_content %}

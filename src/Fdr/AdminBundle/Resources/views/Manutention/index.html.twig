@@ -1,0 +1,40 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block title %}Manutention|Accueil{% endblock %}
+{% block fos_user_content %}
+{% block body -%}
+<div  class="page-header">  <h1>Liste des Manutentions</h1></div>
+<div class="row-fluid">
+    <table class="table-responsive records_list table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Manutentionnaire</th>
+                <th>Chauffeur</th>
+                <th>Nombre de Manutentions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.manutentionnaire|default('-----') }}</td>
+                <td>{{ entity.chauffeur|default('-----') }}</td>
+                <td>{{ entity.nombreManutentions|default('0') }}</td>
+               <td class="col-md-12">
+                <div class="col-md-4">
+                         <a target="_blank" href="{{ path('manutention_show', { 'id': entity.id }) }}">
+                         <button title="Afficher" type="submit">
+                         <img id="inputButtonAfficher" title="Afficher" src="{{ asset('bundles/fdradmin/images/apercu.png') }}" />
+                         </button>
+                         </a> 
+                        </div>
+                        
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {% endblock %}{% endblock fos_user_content %}

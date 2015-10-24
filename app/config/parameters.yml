@@ -1,0 +1,17 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: 3306
+    database_name: feuillederoute
+    database_user: root
+    database_password: ""
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: webartcom.ismail@gmail.com
+    mailer_password: webartcomKomayO2014
+    mailer_encryption : ssl
+    mailer_name: CTM-Messagerie
+    locale: fr
+    secret: fdr2015f6c111172688dde1bf1f86a56f9823977681030e
+    time_zone: "Africa/Casablanca"
