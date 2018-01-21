@@ -1,0 +1,30 @@
+dossier:
+    path:     /
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:index" }
+
+dossier_show:
+    path:     /{id}/show
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:show" }
+
+dossier_new:
+    path:     /new
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:new" }
+
+dossier_create:
+    path:     /create
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:create" }
+    methods:  POST
+
+dossier_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:edit" }
+
+dossier_update:
+    path:     /{id}/update
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:update" }
+    methods:  [POST, PUT]
+
+dossier_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:delete" }
+    methods:  [POST, DELETE]

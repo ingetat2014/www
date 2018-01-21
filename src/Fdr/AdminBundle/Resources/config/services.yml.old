@@ -18,3 +18,9 @@ services:
     entitie_manager:
         class:     Fdr\AdminBundle\Services\Enmanager
         arguments: [@security.context,@doctrine.orm.entity_manager]
+    kernel.listener.redirectListener:
+        class: Fdr\AdminBundle\EventListener\HookListener
+        arguments: [@service_container,@session]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException } 
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

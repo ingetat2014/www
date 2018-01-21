@@ -1,6 +1,6 @@
 komaybundles_idea1:
     resource: "@KomaybundlesIdea1Bundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /idea1
 
 fdr_user:
     resource: "@FdrUserBundle/Resources/config/routing.yml"
