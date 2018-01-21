@@ -42,5 +42,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-app/cache/
-app/logs/
+app/cache/*
+app/logs/*
