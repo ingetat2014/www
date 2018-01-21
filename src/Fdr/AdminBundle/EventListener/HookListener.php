@@ -97,7 +97,7 @@ class HookListener {
         $request = Request::createFromGlobals();
         $serveur = $request->server->get("SERVER_NAME");
         $base = $request->server->get("BASE");
-        $env = ($this->container->get('kernel')->getEnvironment()=="prod")?"/":"/app_dev.php";        
+        $env = ($this->container->get('kernel')->getEnvironment()=="prod")?"/app_dev.php":"/app_dev.php";
         $msg = nl2br($msg);
        if($msg)$this->session->getFlashBag()->add('notFoundException',$msg);
          header('Location:  http://'.$serveur.$base.$env);

@@ -1,5 +1,5 @@
 <?php
-/* Ce fichier là ne nous en sert plus accompagné de htaccess*/
+/* Ce fichier là ne nous sert plus accompagné de htaccess*/
 use Symfony\Component\ClassLoader\ApcClassLoader;
 use Symfony\Component\HttpFoundation\Request;
 $loader = require_once __DIR__.'/app/bootstrap.php';/*NB avant il y avait  bootstrap.php.cache qu'on a renommé en enlevant le .cache*/

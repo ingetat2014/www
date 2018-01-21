@@ -1,0 +1,3 @@
+komaybundles_idea1_homepage:
+    path:     /hellou/{name}
+    defaults: { _controller: KomaybundlesIdea1Bundle:Default:index }

@@ -1,0 +1,4 @@
+services:
+#    komaybundles_idea1.example:
+#        class: Komay\bundles\Idea1Bundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
