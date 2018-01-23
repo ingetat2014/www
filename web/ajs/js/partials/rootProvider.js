@@ -1,12 +1,12 @@
 mainApp.config(['$routeProvider',function ($routeProvider) {
     console.log('----------------------------ROOTPROVIDER CALLING-------------------------------------- ');
     $routeProvider
-            .when('/listUsers',
-            {templateUrl:'listUsers'})
-            .when('/addUser',
+            .when('/showDossier',
+            {templateUrl:'showDossier'})
+            .when('/showDossier',
             {templateUrl:'editUser'})
-            .when('/editUser/:id',
-            {templateUrl:'editUser'
+            .when('/editDossier/:id',
+            {templateUrl:'editDossier'
                     /*,resolve: {
                     "traitement": function($q, $timeout) {
                     var deferred = $q.defer();
@@ -19,6 +19,6 @@ mainApp.config(['$routeProvider',function ($routeProvider) {
                     }
 
                     }*/})
-                    .otherwise({redirectTo: '/listUsers'});
+                    .otherwise({redirectTo: '/'});
 
         }]);
