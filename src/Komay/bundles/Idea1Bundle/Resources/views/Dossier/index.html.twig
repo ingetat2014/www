@@ -1,10 +1,19 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Dossier list</h1>
+    <ul>
+        <li>
+            <a href="{{ path('dossier_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    <div ng-view></div>
+    <script type="text/ng-template" id="listDossier">
+        <h1>Dossier list</h1>
 
-    <table class="records_list">
-        <thead>
+        <table class="records_list">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
@@ -16,85 +25,77 @@
                 <th>Icone</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('dossier_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.nom }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.enabled }}</td>
-                <td>{{ entity.size }}</td>
-                <td>{{ entity.icone }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="#showDossier/1">show</a>
-                    </li>
-                    <li>
-                        <a href="#editDossier/1">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('dossier_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.nom }}</td>
+                    <td>{{ entity.description }}</td>
+                    <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ entity.enabled }}</td>
+                    <td>{{ entity.size }}</td>
+                    <td>{{ entity.icone }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="#showDossier/1" ng-click="showDossier({{ entity.id }})">show</a>
+                            </li>
+                            <li>
+                                <a href="#editDossier/1" ng-click="editDossier({{ entity.id }})">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </script>
 
-        <ul>
-        <li>
-            <a href="{{ path('dossier_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    <br/>
-    <div ng-view></div>
-    <br/>
-    Test AJs : <br/>
-    <script type = "text/ng-template" id = "editDossier">
+    <script type="text/ng-template" id="editDossier">
         <h1>Dossier edit</h1>
         {{ form(edit_form) }}
+        <a href="#listDossier">List</a>
     </script>
-    <script type = "text/ng-template" id = "showDossier">
+    <script type="text/ng-template" id="showDossier">
         <h1>Dossier Show</h1>
         <table class="record_properties">
-        <tbody>
+            <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <td>{{ currentEntity.id }}</td>
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ entity.nom }}</td>
+                <td>{{ currentEntity.nom }}</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ entity.description }}</td>
+                <td>{{ currentEntity.description }}</td>
             </tr>
             <tr>
                 <th>Created</th>
-                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+                <td>{{ currentEntity.created|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Updated</th>
-                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+                <td>{{ currentEntity.updated|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Enabled</th>
-                <td>{{ entity.enabled }}</td>
+                <td>{{ currentEntity.enabled }}</td>
             </tr>
             <tr>
                 <th>Size</th>
-                <td>{{ entity.size }}</td>
+                <td>{{ currentEntity.size }}</td>
             </tr>
             <tr>
                 <th>Icone</th>
-                <td>{{ entity.icone }}</td>
+                <td>{{ currentEntity.icone }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <a href="#listDossier">List</a>
     </script>
-    {% endblock %}
+{% endblock %}

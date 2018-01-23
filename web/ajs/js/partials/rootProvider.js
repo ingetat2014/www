@@ -3,8 +3,10 @@ mainApp.config(['$routeProvider',function ($routeProvider) {
     $routeProvider
             .when('/showDossier',
             {templateUrl:'showDossier'})
+            .when('/listDossier',
+            {templateUrl:'listDossier'})
             .when('/showDossier',
-            {templateUrl:'editUser'})
+            {templateUrl:'editDossier'})
             .when('/editDossier/:id',
             {templateUrl:'editDossier'
                     /*,resolve: {
@@ -19,6 +21,6 @@ mainApp.config(['$routeProvider',function ($routeProvider) {
                     }
 
                     }*/})
-                    .otherwise({redirectTo: '/'});
+                    .otherwise({redirectTo: '/listDossier'});
 
         }]);

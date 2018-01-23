@@ -1,6 +1,12 @@
 mainApp.controller("TestController", ['$scope', '$routeParams', 'ServiceFromFactory', '$rootScope', '$location','diValue',
     function ($scope, $routeParams, ServiceFromFactory, $rootScope, $location,diValue) {
         console.log('----------------------------CONTROLLER CALLING-------------------------------------- ');
+        $scope.editDossier = function (id){
+            console.log(" editDossier id = "+id);
+        }
+        $scope.showDossier = function (id){
+            console.log(" showDossier id = "+id);
+        }
         $scope.soumettre="Soumettre";
         $scope.limite = 10;
         $scope.student = {
