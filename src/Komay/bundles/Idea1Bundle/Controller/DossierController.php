@@ -22,11 +22,14 @@ class DossierController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $entity = new Dossier();
         $entities = $em->getRepository('KomaybundlesIdea1Bundle:Dossier')->findAll();
+        $editForm = $this->createEditForm(new Dossier());
 
         return $this->render('KomaybundlesIdea1Bundle:Dossier:index.html.twig', array(
             'entities' => $entities,
+            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
         ));
     }
     /**
