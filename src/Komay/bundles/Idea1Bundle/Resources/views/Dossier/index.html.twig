@@ -31,10 +31,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('dossier_show', { 'id': entity.id }) }}">show</a>
+                        <a href="#showDossier/1">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('dossier_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="#editDossier/1">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -50,4 +50,51 @@
             </a>
         </li>
     </ul>
+    <br/>
+    <div ng-view></div>
+    <br/>
+    Test AJs : <br/>
+    <script type = "text/ng-template" id = "editDossier">
+        <h1>Dossier edit</h1>
+        {{ form(edit_form) }}
+    </script>
+    <script type = "text/ng-template" id = "showDossier">
+        <h1>Dossier Show</h1>
+        <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ entity.size }}</td>
+            </tr>
+            <tr>
+                <th>Icone</th>
+                <td>{{ entity.icone }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </script>
     {% endblock %}
