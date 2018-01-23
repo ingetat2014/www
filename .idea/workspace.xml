@@ -579,17 +579,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/views/Dossier/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66">
-              <caret line="45" column="87" selection-start-line="45" selection-start-column="87" selection-end-line="45" selection-end-column="87" />
+            <state relative-caret-position="238">
+              <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
               <folding>
-                <marker date="1516747411291" expanded="true" signature="726:1478" ph="..." />
-                <marker date="1516747411291" expanded="true" signature="740:1478" ph="{% for entity in entities ...%}" />
-                <marker date="1516747411291" expanded="true" signature="1021:1095" ph="{% if entity.created ...%}" />
-                <marker date="1516747411291" expanded="true" signature="1125:1199" ph="{% if entity.updated ...%}" />
-                <marker date="1516747411291" expanded="true" signature="1435:1478" ph="..." />
+                <marker date="1516748207700" expanded="true" signature="727:1479" ph="..." />
+                <marker date="1516748207700" expanded="true" signature="741:1479" ph="{% for entity in entities ...%}" />
+                <marker date="1516748207700" expanded="true" signature="1022:1096" ph="{% if entity.created ...%}" />
+                <marker date="1516748207700" expanded="true" signature="1126:1200" ph="{% if entity.updated ...%}" />
+                <marker date="1516748207700" expanded="true" signature="1436:1479" ph="..." />
               </folding>
             </state>
           </provider>
@@ -608,8 +608,8 @@
       <file leaf-file-name="rootProvider.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/ajs/js/partials/rootProvider.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="40" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
+            <state relative-caret-position="17">
+              <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -618,18 +618,18 @@
       <file leaf-file-name="testController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/ajs/js/partials/testController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="109" selection-start-line="2" selection-start-column="109" selection-end-line="2" selection-end-column="109" />
+            <state relative-caret-position="68">
+              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DossierController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DossierController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Controller/DossierController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+            <state relative-caret-position="323">
+              <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -669,11 +669,11 @@
         <option value="$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-        <option value="$PROJECT_DIR$/web/ajs/js/partials/rootProvider.js" />
         <option value="$PROJECT_DIR$/web/app_dev.php" />
-        <option value="$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/views/Dossier/index.html.twig" />
-        <option value="$PROJECT_DIR$/web/ajs/js/partials/testController.js" />
         <option value="$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Controller/DossierController.php" />
+        <option value="$PROJECT_DIR$/web/ajs/js/partials/testController.js" />
+        <option value="$PROJECT_DIR$/web/ajs/js/partials/rootProvider.js" />
+        <option value="$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/views/Dossier/index.html.twig" />
       </list>
     </option>
   </component>
@@ -859,7 +859,7 @@
       <workItem from="1516545763248" duration="14512000" />
       <workItem from="1516654232952" duration="1009000" />
       <workItem from="1516655409330" duration="1529000" />
-      <workItem from="1516743864762" duration="3875000" />
+      <workItem from="1516743864762" duration="4275000" />
     </task>
     <task id="LOCAL-00001" summary="ap-vendor">
       <created>1516229455279</created>
@@ -903,13 +903,20 @@
       <option name="project" value="LOCAL" />
       <updated>1516656888334</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add AngularJs rootprovider and else ...">
+      <created>1516747825331</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1516747825331</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54170000" />
+    <option name="totallyTimeSpent" value="54570000" />
   </component>
-  <component name="TodoView" selected-index="4">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -922,9 +929,9 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23718888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23718888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15885799" sideWeight="0.51756954" order="4" side_tool="true" content_ui="tabs" x="562" y="220" width="242" height="288" />
+      <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2672035" sideWeight="0.51756954" order="4" side_tool="true" content_ui="tabs" x="562" y="220" width="242" height="288" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293944" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5599369" sideWeight="0.48828697" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2917981" sideWeight="0.48243046" order="6" side_tool="false" content_ui="tabs" />
@@ -2391,26 +2398,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Entity/Dossier.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ajs/js/partials/rootProvider.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="40" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -2425,33 +2416,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/views/Dossier/index.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Controller/DossierController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="45" column="87" selection-start-line="45" selection-start-column="87" selection-end-line="45" selection-end-column="87" />
-          <folding>
-            <marker date="1516747411291" expanded="true" signature="726:1478" ph="..." />
-            <marker date="1516747411291" expanded="true" signature="740:1478" ph="{% for entity in entities ...%}" />
-            <marker date="1516747411291" expanded="true" signature="1021:1095" ph="{% if entity.created ...%}" />
-            <marker date="1516747411291" expanded="true" signature="1125:1199" ph="{% if entity.updated ...%}" />
-            <marker date="1516747411291" expanded="true" signature="1435:1478" ph="..." />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/ajs/js/partials/testController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="109" selection-start-line="2" selection-start-column="109" selection-end-line="2" selection-end-column="109" />
+        <state relative-caret-position="68">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Controller/DossierController.php">
+    <entry file="file://$PROJECT_DIR$/web/ajs/js/partials/rootProvider.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        <state relative-caret-position="17">
+          <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Komay/bundles/Idea1Bundle/Resources/views/Dossier/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding>
+            <marker date="1516748207700" expanded="true" signature="727:1479" ph="..." />
+            <marker date="1516748207700" expanded="true" signature="741:1479" ph="{% for entity in entities ...%}" />
+            <marker date="1516748207700" expanded="true" signature="1022:1096" ph="{% if entity.created ...%}" />
+            <marker date="1516748207700" expanded="true" signature="1126:1200" ph="{% if entity.updated ...%}" />
+            <marker date="1516748207700" expanded="true" signature="1436:1479" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

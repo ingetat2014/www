@@ -1,5 +1,5 @@
 mainApp.config(['$routeProvider',function ($routeProvider) {
-    console.log('----------------------------ROOTPROVIDER CALLING-------------------------------------- ');
+    console.log('----------------------------ROOTPROVIDER CALLING------------------------------------- ');
     $routeProvider
             .when('/showDossier',
             {templateUrl:'showDossier'})
