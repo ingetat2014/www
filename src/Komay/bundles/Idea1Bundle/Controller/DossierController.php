@@ -3,6 +3,8 @@
 namespace Komay\bundles\Idea1Bundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Komay\bundles\Idea1Bundle\Entity\Dossier;
@@ -34,10 +36,20 @@ class DossierController extends Controller
             'currentEntity' => $entity,
         ));
     }
+
     /**
      * Creates a new Dossier entity.
      *
      */
+
+    public function allDossiersToJsonAction(){
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('KomaybundlesIdea1Bundle:Dossier')->findAll();
+         //print_r($arr);
+         //die();
+        return  new JsonResponse($arr);
+    }
+
     public function createAction(Request $request)
     {
         $entity = new Dossier();
