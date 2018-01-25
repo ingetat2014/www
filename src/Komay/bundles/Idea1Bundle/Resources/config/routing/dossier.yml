@@ -28,3 +28,6 @@ dossier_delete:
     path:     /{id}/delete
     defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:delete" }
     methods:  [POST, DELETE]
+dossier_json:
+    path:     /allDossiersToJson
+    defaults: { _controller: "KomaybundlesIdea1Bundle:Dossier:allDossiersToJson" }
