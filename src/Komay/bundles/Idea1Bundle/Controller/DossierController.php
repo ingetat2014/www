@@ -9,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Komay\bundles\Idea1Bundle\Entity\Dossier;
 use Komay\bundles\Idea1Bundle\Form\DossierType;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * Dossier controller.
@@ -45,9 +49,12 @@ class DossierController extends Controller
     public function allDossiersToJsonAction(){
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('KomaybundlesIdea1Bundle:Dossier')->findAll();
-         //print_r($arr);
-         //die();
-        return  new JsonResponse($arr);
+        $arr=[];
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $serializer->serialize($entities, 'json');
+        return  new JsonResponse($serializer->serialize($entities, 'json'));
     }
 
     public function createAction(Request $request)

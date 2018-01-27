@@ -24,7 +24,7 @@
         "ensepar/html2pdf-bundle": "dev-master",
         "jms/security-extra-bundle": "dev-master",
         "liuggio/ExcelBundle": "dev-master",
-		"egeloen/ckeditor-bundle": "dev-master"
+        "symfony/serializer": "3.0.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
