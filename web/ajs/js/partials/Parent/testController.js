@@ -1,6 +1,8 @@
-mainApp.controller("TestController", ['$scope', '$routeParams', 'ServiceFromFactory', '$rootScope', '$location'
+mainApp.controller("TestController", ['$scope', '$routeParams', 'ServiceFromFactory', '$rootScope', '$location',
     function ($scope, $routeParams, ServiceFromFactory, $rootScope, $location) {
         console.log('----------------------------CONTROLLER CALLING-------------------------------------- ');
+        $scope.var1="test";
+        console.log($scope.var1);
         $scope.dossiers = [];
         $scope.editDossier = function (id){
             console.log("editDossier id = "+id);

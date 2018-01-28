@@ -11,22 +11,26 @@
 
         <script src = "{{ asset('ajs/js/angularDependencies/angular.min.js') }}"></script>
         <script src = "{{ asset('ajs/js/angularDependencies/angular-route.min.js') }}"></script>
-        <script src = "{{ asset('ajs/js/partials/mainApp.js') }}"></script>
-        <script src = "{{ asset('ajs/js/partials/factories.js') }}"></script>
-        <script src = "{{ asset('ajs/js/partials/services.js') }}"/></script>
-        <script src = "{{ asset('ajs/js/partials/rootProvider.js') }}"></script>
-        <script src = "{{ asset('ajs/js/partials/directives.js') }}"></script>
-        <script src = "{{ asset('ajs/js/partials/testController.js') }}"></script>
+
 
     </head>
-    <body ng-app = "mainApp" ng-controller="TestController" >
+    <body ng-app = "mainApp">
     <div class="container">
          {% block body %}{% endblock %}
-         {% block javascripts %}         {% endblock %}
+
     
          {% block footer %}
          {% endblock %}
     </div>
 
+    <!-- par la suite on y revient-->
+    <script src = "{{ asset('ajs/js/partials/Parent/mainApp.js') }}"></script>
+    {% block javascripts %}
+        <script src = "{{ asset('ajs/js/partials/Parent/factories.js') }}"></script>
+        <script src = "{{ asset('ajs/js/partials/Parent/services.js') }}"/></script>
+        <script src = "{{ asset('ajs/js/partials/Parent/rootProvider.js') }}"></script>
+        <script src = "{{ asset('ajs/js/partials/Parent/directives.js') }}"></script>
+        <script src = "{{ asset('ajs/js/partials/Parent/testController.js') }}"></script>
+    {% endblock %}
     </body>
 </html>
