@@ -41,22 +41,6 @@ class DossierController extends Controller
         ));
     }
 
-    /**
-     * Creates a new Dossier entity.
-     *
-     */
-
-    public function allDossiersToJsonAction(){
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('KomaybundlesIdea1Bundle:Dossier')->findAll();
-        $arr=[];
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
-        $serializer->serialize($entities, 'json');
-        return  new JsonResponse($serializer->serialize($entities, 'json'));
-    }
-
     public function createAction(Request $request)
     {
         $entity = new Dossier();
@@ -244,5 +228,33 @@ class DossierController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /** JSON  */
+    /**
+     * allDossiersToJsonAction
+     *
+     */
+
+    public function allDossiersToJsonAction(){
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('KomaybundlesIdea1Bundle:Dossier')->findAll();
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $serializer->serialize($entities, 'json');
+        return  new JsonResponse($serializer->serialize($entities, 'json'));
+    }
+    /**
+     * allDossiersToJsonAction
+     *
+     */
+
+    public function editDossierToJsonAction(){
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $edit_form = $this->createEditForm(new Dossier());
+        return  new JsonResponse($serializer->serialize($edit_form, 'xml'));
     }
 }

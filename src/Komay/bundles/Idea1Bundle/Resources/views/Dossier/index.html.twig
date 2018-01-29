@@ -4,7 +4,7 @@
     <div ng-controller="dossierController">
     <ul>
         <li>
-            <a href="{{ path('dossier_new') }}">
+            <a  href="#editDossier" ng-click="new()">
                 Create a new entry
             </a>
         </li>
@@ -19,7 +19,6 @@
                 <table  class="records_list">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nom</th>
                         <th>Description</th>
                         <th>Created</th>
@@ -31,22 +30,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat = "dossier in dossiers track by $index">
-                        <td><a href=""></a></td>
-                        <td>|| dossier.nom ||</td>
-                        <td>|| dossier.description ||</td>
-                        <td>|| dossier.created.timestamp ||</td>
-                        <td>|| dossier.updated.timestamp||</td>
-                        <td>|| dossier.enabled ||</td>
-                        <td>|| dossier.size ||</td>
-                        <td>|| dossier.icone ||</td>
+                    <tr ng-repeat = "dossier in dossiers">
+                        <td>[[ dossier.nom ]]</td>
+                        <td>[[ dossier.description ]]</td>
+                        <td>[[ dossier.created.timestamp ]]</td>
+                        <td>[[ dossier.updated.timestamp]]</td>
+                        <td>[[ dossier.enabled ]]</td>
+                        <td>[[ dossier.size ]]</td>
+                        <td>[[ dossier.icone ]]</td>
                         <td>
                             <ul>
                                 <li>
-                                    <a href="#showDossier/1" ng-click="">show</a>
+                                    <a href="#showDossier" ng-click="show([[ dossier.id ]])">show</a>
                                 </li>
                                 <li>
-                                    <a href="#editDossier/1" ng-click="">edit</a>
+                                    <a href="#editDossier" ng-click="edit([[ dossier.id ]])">edit</a>
                                 </li>
                             </ul>
                         </td>
@@ -56,8 +54,7 @@
             </script>
 
             <script type="text/ng-template" id="editDossier">
-                <h1>Dossier edit</h1>
-                {{ form(edit_form) }}
+                <h1 id="edit">Dossier edit</h1>
                 <a href="#listDossier">List</a>
             </script>
             <script type="text/ng-template" id="showDossier">
@@ -66,35 +63,35 @@
                     <tbody>
                     <tr>
                         <th>Id</th>
-                        <td>{{ currentEntity.id }}</td>
+                        <td>[[ currentDossier.id ]]</td>
                     </tr>
                     <tr>
                         <th>Nom</th>
-                        <td>{{ currentEntity.nom }}</td>
+                        <td>[[ currentDossier.nom ]]</td>
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td>{{ currentEntity.description }}</td>
+                        <td>[[ currentDossier.description ]]</td>
                     </tr>
                     <tr>
                         <th>Created</th>
-                        <td>{{ currentEntity.created|date('Y-m-d H:i:s') }}</td>
+                        <td>[[ currentDossier.created.timestamp ]]</td>
                     </tr>
                     <tr>
                         <th>Updated</th>
-                        <td>{{ currentEntity.updated|date('Y-m-d H:i:s') }}</td>
+                        <td>[[ currentDossier.updated.timestamp]]</td>
                     </tr>
                     <tr>
                         <th>Enabled</th>
-                        <td>{{ currentEntity.enabled }}</td>
+                        <td>[[ currentDossier.enabled ]]</td>
                     </tr>
                     <tr>
                         <th>Size</th>
-                        <td>{{ currentEntity.size }}</td>
+                        <td>[[ currentDossier.size ]]</td>
                     </tr>
                     <tr>
                         <th>Icone</th>
-                        <td>{{ currentEntity.icone }}</td>
+                        <td>[[ currentDossier.icone ]]</td>
                     </tr>
                     </tbody>
                 </table>

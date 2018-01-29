@@ -8,7 +8,17 @@ mainApp.factory('dossierFactory',['$http','$q',function($http,$q){
             .success(function (response) {
                 deferred.resolve(response);
             }).error(function(data, status, headers, config){
-                deferred.reject('error on retrieving data-loadUsersFromAjax '+data);
+                deferred.reject('error on retrieving data-all '+data);
+        });
+        return deferred.promise;
+    };
+    factory.new = function(){
+        var deferred = $q.defer();
+        $http.get('new')
+            .success(function (response) {
+                deferred.resolve(response);
+            }).error(function(data, status, headers, config){
+            deferred.reject('error on retrieving data-nez '+data);
         });
         return deferred.promise;
     };

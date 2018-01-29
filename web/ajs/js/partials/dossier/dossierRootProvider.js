@@ -5,9 +5,7 @@ mainApp.config(['$routeProvider',function ($routeProvider) {
             {templateUrl:'showDossier'})
         .when('/listDossier',
             {templateUrl:'listDossier'})
-        .when('/showDossier',
-            {templateUrl:'editDossier'})
-        .when('/editDossier/:id',
+        .when('/editDossier',
             {templateUrl:'editDossier'
                 /*,resolve: {
                  "traitement": function($q, $timeout) {
