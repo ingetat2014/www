@@ -5,6 +5,8 @@ mainApp.config(['$routeProvider',function ($routeProvider) {
             {templateUrl:'showDossier'})
         .when('/listDossier',
             {templateUrl:'listDossier'})
+        .when('/newDossier',
+            {templateUrl:'newDossier'})
         .when('/editDossier',
             {templateUrl:'editDossier'
                 /*,resolve: {

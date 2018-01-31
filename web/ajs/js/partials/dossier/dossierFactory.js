@@ -18,7 +18,7 @@ mainApp.factory('dossierFactory',['$http','$q',function($http,$q){
             .success(function (response) {
                 deferred.resolve(response);
             }).error(function(data, status, headers, config){
-            deferred.reject('error on retrieving data-nez '+data);
+            deferred.reject('error on retrieving data-new '+data);
         });
         return deferred.promise;
     };

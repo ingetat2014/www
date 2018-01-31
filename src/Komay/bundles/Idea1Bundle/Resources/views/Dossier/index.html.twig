@@ -10,6 +10,7 @@
         </li>
     </ul>
     <div ng-view></div>
+        <div id="new"></div>
     </div>
 {% endblock %}
         {% block javascripts %}
@@ -55,6 +56,10 @@
 
             <script type="text/ng-template" id="editDossier">
                 <h1 id="edit">Dossier edit</h1>
+                <a href="#listDossier">List</a>
+            </script>
+            <script type="text/ng-template" id="newDossier">
+                <div id="newz"></div>
                 <a href="#listDossier">List</a>
             </script>
             <script type="text/ng-template" id="showDossier">

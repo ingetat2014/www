@@ -20,9 +20,9 @@ mainApp.controller("dossierController", ['$scope','$routeParams', 'dossierServic
                     htmlObject.innerHTML = data;
                     var form = htmlObject.getElementsByTagName("form")[0];
                     var htmlObject2 = document.createElement('div').appendChild(form);
-                    document.getElementById("editDossier").innerHTML ="";
-                    document.getElementById("editDossier").appendChild(form);
-                     console.log(" Data new form : ",document.getElementById("editDossier"));
+                    document.getElementById("new").innerHTML ="";
+                    document.getElementById("new").appendChild(form);
+                     console.log(" Data new form : ",document.getElementById("new"));
                 }
                 , function (error) {
                     console.log('erreur dossierService.new() : '+error);
